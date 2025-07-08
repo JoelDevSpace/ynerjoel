@@ -33,7 +33,7 @@ const data = {
                     url: '#',
                 },
                 {
-                    title: 'Roles',
+                    title: 'Groupes Utilisateurs',
                     url: '/admin/roles',
                 },
                 {

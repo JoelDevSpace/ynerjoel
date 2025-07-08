@@ -7,7 +7,7 @@ import { Pencil, Plus, Trash2 } from 'lucide-vue-next';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Roles',
+        title: 'Groupes Utilisateurs',
         href: '/roles',
     },
 ];
@@ -39,7 +39,7 @@ function DeleteRole(id: number) {
 </script>
 
 <template>
-    <Head title="Roles" />
+    <Head title="Groupes Utilisateurs" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
@@ -48,7 +48,7 @@ function DeleteRole(id: number) {
                     :href="route('admin.roles.create')"
                     class="inline-flex rounded-lg bg-green-700 px-3 py-2 text-xs font-medium text-white hover:bg-green-800 focus:ring-4 focus:ring-green-300 focus:outline-none dark:bg-green-600"
                 >
-                    <Plus class="mr-2 h-4 w-4" />Create Role
+                    <Plus class="mr-2 h-4 w-4" />Ajouter un groupe
                 </Link>
             </div>
             <div class="overflow-x-auto p-3">
@@ -57,7 +57,7 @@ function DeleteRole(id: number) {
                         <TableRow>
                             <TableHead class="w-[100px]">ID</TableHead>
                             <TableHead>Nom</TableHead>
-                            <TableHead>Permissions</TableHead>
+                            <TableHead>Liste des Permissions</TableHead>
                             <TableHead>Actions</TableHead>
                         </TableRow>
                     </TableHeader>
