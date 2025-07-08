@@ -1,0 +1,101 @@
+<script setup lang="ts">
+import AppLayout from '@/layouts/AppLayout.vue';
+import { type BreadcrumbItem } from '@/types';
+import { Head, Link, router } from '@inertiajs/vue3';
+import { Pencil, Plus, Trash2 } from 'lucide-vue-next';
+
+const breadcrumbs: BreadcrumbItem[] = [
+    {
+        title: 'Roles',
+        href: '/roles',
+    },
+];
+
+defineProps<{
+    roles: Array<{
+        id: number;
+        name: string;
+        permissions: Array<{
+            id: number;
+            name: string;
+        }>;
+    }>;
+}>();
+function DeleteRole(id: number) {
+    if (confirm('Are you sure you want to delete this role?')) {
+        router.delete(route('admin.roles.destroy', id), {
+            preserveScroll: true,
+            onSuccess: () => {
+                console.log('role deleted successfully');
+            },
+            onError: (error) => {
+                console.error('Error deleting role:', error);
+            },
+        });
+    }
+}
+</script>
+
+<template>
+    <Head title="Roles" />
+
+    <AppLayout :breadcrumbs="breadcrumbs">
+        <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
+            <div>
+                <Link
+                    :href="route('admin.roles.create')"
+                    class="inline-flex rounded-lg bg-green-700 px-3 py-2 text-xs font-medium text-white hover:bg-green-800 focus:ring-4 focus:ring-green-300 focus:outline-none dark:bg-green-600"
+                >
+                    <Plus class="mr-2 h-4 w-4" />Create Role
+                </Link>
+            </div>
+            <div class="overflow-x-auto p-3">
+                <table class="w-full text-left text-sm text-gray-500 dark:text-gray-400">
+                    <thead class="bg-gray-50 text-xs text-gray-700 uppercase dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">ID</th>
+                            <th scope="col" class="px-6 py-3">Name</th>
+                            <th scope="col" class="px-6 py-3">Permissions</th>
+                            <th scope="col" class="px-6 py-3">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="role in roles" :key="role.id" class="odd:bp-white add:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-900">
+                            <td class="px-6 py-2 font-medium text-gray-900 dark:text-white">{{ role.id }}</td>
+                            <td class="px-6 py-2 text-gray-600 dark:text-gray-300">{{ role.name }}</td>
+                            <td class="px-6 py-2 text-gray-600 dark:text-gray-300">
+                                <span
+                                    v-for="permission in role.permissions"
+                                    :key="permission.id"
+                                    class="mr-1 rounded bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900 dark:text-green-300"
+                                >
+                                    {{ permission.name }}
+                                </span>
+                            </td>
+                            <td class="px-6 py-2">
+                                <Link
+                                    :href="route('admin.roles.show', role.id)"
+                                    class="inline-flex rounded-lg bg-gray-700 px-3 py-2 text-xs font-medium text-white hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 focus:outline-none dark:bg-gray-600"
+                                >
+                                    <Pencil class="mr-2 h-3 w-3" />Show
+                                </Link>
+                                <Link
+                                    :href="route('admin.roles.edit', role.id)"
+                                    class="mx-2 inline-flex rounded-lg bg-blue-700 px-3 py-2 text-xs font-medium text-white hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:bg-blue-600"
+                                >
+                                    <Pencil class="mr-2 h-3 w-3" />Edit
+                                </Link>
+                                <button
+                                    @click="DeleteRole(role.id)"
+                                    class="inline-flex rounded-lg bg-red-700 px-3 py-2 text-xs font-medium text-white hover:bg-red-800 focus:ring-4 focus:ring-red-300 focus:outline-none dark:bg-red-600"
+                                >
+                                    <Trash2 class="mr-2 h-3 w-3" />Delete
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </AppLayout>
+</template>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -18,9 +19,9 @@ Route::group(['auth', 'verified'], function () {
 
     //Admin Routes Group
     Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
-        // User routes
+
+        Route::resource('roles', RoleController::class)->names('roles');
         Route::resource('users', UserController::class)->names('users');
-        Route::resource('roles', UserController::class)->names('roles');
     });
 
     Route::get('dashboard', function () {

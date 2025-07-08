@@ -34,7 +34,7 @@ const data = {
                 },
                 {
                     title: 'Roles',
-                    url: '#',
+                    url: '/admin/roles',
                 },
                 {
                     title: 'Permissions',
