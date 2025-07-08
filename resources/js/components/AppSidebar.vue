@@ -1,57 +1,153 @@
 <script setup lang="ts">
-import NavFooter from '@/components/NavFooter.vue';
 import NavMain from '@/components/NavMain.vue';
+import NavProjects from '@/components/NavProjects.vue';
 import NavUser from '@/components/NavUser.vue';
-import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
-import { type NavItem } from '@/types';
+import SearchForm from '@/components/SearchForm.vue';
+import {
+    Sidebar,
+    SidebarContent,
+    SidebarFooter,
+    SidebarGroup,
+    SidebarGroupLabel,
+    SidebarHeader,
+    SidebarMenuButton,
+    type SidebarProps,
+} from '@/components/ui/sidebar';
 import { Link } from '@inertiajs/vue3';
-import { BookOpen, Folder, LayoutGrid } from 'lucide-vue-next';
+import { ChartArea, FolderOpen, Frame, LayoutGrid, PieChart, Settings, Wrench } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
 
-const mainNavItems: NavItem[] = [
-    {
-        title: 'Dashboard',
-        href: '/dashboard',
-        icon: LayoutGrid,
-    },
-];
+const props = defineProps<SidebarProps>();
 
-const footerNavItems: NavItem[] = [
-    {
-        title: 'Github Repo',
-        href: 'https://github.com/laravel/vue-starter-kit',
-        icon: Folder,
-    },
-    {
-        title: 'Documentation',
-        href: 'https://laravel.com/docs/starter-kits#vue',
-        icon: BookOpen,
-    },
-];
+// This is sample data.
+const data = {
+    navMain: [
+        {
+            title: 'Administration',
+            url: '#',
+            icon: Wrench,
+            isActive: true,
+            items: [
+                {
+                    title: 'Utilisateurs',
+                    url: '#',
+                },
+                {
+                    title: 'Roles',
+                    url: '#',
+                },
+                {
+                    title: 'Permissions',
+                    url: '#',
+                },
+            ],
+        },
+        {
+            title: 'Configuration',
+            url: '#',
+            icon: Settings,
+            items: [
+                {
+                    title: 'Genesis',
+                    url: '#',
+                },
+                {
+                    title: 'Explorer',
+                    url: '#',
+                },
+            ],
+        },
+        {
+            title: 'Dossiers',
+            url: '#',
+            icon: FolderOpen,
+            items: [
+                {
+                    title: 'Introduction',
+                    url: '#',
+                },
+                {
+                    title: 'Get Started',
+                    url: '#',
+                },
+                {
+                    title: 'Tutorials',
+                    url: '#',
+                },
+                {
+                    title: 'Changelog',
+                    url: '#',
+                },
+            ],
+        },
+        {
+            title: 'Reporting',
+            url: '#',
+            icon: ChartArea,
+            items: [
+                {
+                    title: 'Statistiques',
+                    url: '#',
+                },
+                {
+                    title: 'Team',
+                    url: '#',
+                },
+                {
+                    title: 'Billing',
+                    url: '#',
+                },
+                {
+                    title: 'Limits',
+                    url: '#',
+                },
+            ],
+        },
+    ],
+    projects: [
+        {
+            name: 'Installateurs',
+            url: '#',
+            icon: Frame,
+        },
+        {
+            name: 'Dossiers',
+            url: '#',
+            icon: PieChart,
+        },
+        {
+            name: 'Lots',
+            url: '#',
+            icon: Frame,
+        },
+    ],
+};
 </script>
 
 <template>
-    <Sidebar collapsible="icon" variant="inset">
+    <Sidebar v-bind="props">
         <SidebarHeader>
-            <SidebarMenu>
-                <SidebarMenuItem>
-                    <SidebarMenuButton size="lg" as-child>
-                        <Link :href="route('dashboard')">
-                            <AppLogo />
-                        </Link>
-                    </SidebarMenuButton>
-                </SidebarMenuItem>
-            </SidebarMenu>
+            <SidebarMenuButton size="lg" as-child>
+                <Link :href="route('dashboard')">
+                    <AppLogo />
+                </Link>
+            </SidebarMenuButton>
+            <SearchForm />
         </SidebarHeader>
-
-        <SidebarContent>
-            <NavMain :items="mainNavItems" />
+        <SidebarContent class="gap-0">
+            <SidebarGroup>
+                <SidebarGroupLabel class="group/label text-sm text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground">
+                    <a :href="route('dashboard')" class="flex items-center">
+                        <component :is="LayoutGrid" />
+                        <span class="ml-2">Dashboard</span>
+                    </a>
+                </SidebarGroupLabel>
+            </SidebarGroup>
+            <NavMain :items="data.navMain" />
+            <NavProjects :projects="data.projects" />
         </SidebarContent>
-
         <SidebarFooter>
-            <NavFooter :items="footerNavItems" />
             <NavUser />
         </SidebarFooter>
     </Sidebar>
-    <slot />
 </template>
