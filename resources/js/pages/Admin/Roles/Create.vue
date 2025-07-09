@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import InputError from '@/components/InputError.vue';
+import LinkBtnRetour from '@/components/links/LinkBtnRetour.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
-import { Head, Link, useForm } from '@inertiajs/vue3';
-import { Save, Undo2 } from 'lucide-vue-next';
+import { Head, useForm } from '@inertiajs/vue3';
+import { Save } from 'lucide-vue-next';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -34,13 +35,7 @@ const form = useForm({
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
             <div>
-                <Link
-                    :href="route('admin.roles.index')"
-                    class="inline-flex rounded-lg bg-blue-700 px-3 py-2 text-xs font-medium text-white hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:bg-blue-600"
-                >
-                    <Undo2 class="mr-2 h-4 w-4" />
-                    Retour
-                </Link>
+                <LinkBtnRetour :href="route('admin.roles.index')" />
             </div>
             <form class="flex w-1/3 flex-col gap-6" @submit.prevent="form.post(route('admin.roles.store'))">
                 <div class="grid gap-6">

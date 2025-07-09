@@ -1,9 +1,15 @@
 <script setup lang="ts">
+import RoleShow from '@/components/admin/RoleShow.vue';
+import LinkBntAjouter from '@/components/links/LinkBtnAjouter.vue';
+import LinkBtnModifier from '@/components/links/LinkBtnModifier.vue';
+import LinkBtnSupprimer from '@/components/links/LinkBtnSupprimer.vue';
+import LinkBntVoir from '@/components/links/LinkBtnVoir.vue';
+import Modal from '@/components/Modal.vue';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
-import { Head, Link, router } from '@inertiajs/vue3';
-import { Pencil, Plus, Trash2 } from 'lucide-vue-next';
+import { Head, router } from '@inertiajs/vue3';
+import { ref } from 'vue';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -22,6 +28,19 @@ defineProps<{
         }>;
     }>;
 }>();
+
+const showRoleModal = ref(false);
+const showingRole = ref<Record<string, any> | undefined>(undefined);
+
+const closeModal = () => {
+    showRoleModal.value = false;
+    showingRole.value = undefined;
+};
+
+const ShowRole = (role: Record<string, any>) => {
+    showingRole.value = role;
+    showRoleModal.value = true;
+};
 
 function DeleteRole(id: number) {
     if (confirm('Are you sure you want to delete this role?')) {
@@ -44,18 +63,13 @@ function DeleteRole(id: number) {
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
             <div>
-                <Link
-                    :href="route('admin.roles.create')"
-                    class="inline-flex rounded-lg bg-green-700 px-3 py-2 text-xs font-medium text-white hover:bg-green-800 focus:ring-4 focus:ring-green-300 focus:outline-none dark:bg-green-600"
-                >
-                    <Plus class="mr-2 h-4 w-4" />Ajouter un groupe
-                </Link>
+                <LinkBntAjouter :href="route('admin.roles.create')" :text="'un groupe'" />
             </div>
             <div class="overflow-x-auto p-3">
                 <Table>
                     <TableHeader>
                         <TableRow>
-                            <TableHead class="w-[100px]">ID</TableHead>
+                            <TableHead class="w-[80px]">ID</TableHead>
                             <TableHead>Nom</TableHead>
                             <TableHead>Liste des Permissions</TableHead>
                             <TableHead>Actions</TableHead>
@@ -75,29 +89,21 @@ function DeleteRole(id: number) {
                                 </span>
                             </TableCell>
                             <TableCell>
-                                <Link
-                                    :href="route('admin.roles.show', role.id)"
-                                    class="inline-flex rounded-lg bg-gray-700 px-3 py-2 text-xs font-medium text-white hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 focus:outline-none dark:bg-gray-600"
-                                >
-                                    <Pencil class="mr-2 h-4 w-4" />Show
-                                </Link>
-                                <Link
-                                    :href="route('admin.roles.edit', role.id)"
-                                    class="mx-2 inline-flex rounded-lg bg-blue-700 px-3 py-2 text-xs font-medium text-white hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:bg-blue-600"
-                                >
-                                    <Pencil class="mr-2 h-4 w-4" />Edit
-                                </Link>
-                                <button
-                                    @click="DeleteRole(role.id)"
-                                    class="inline-flex rounded-lg bg-red-700 px-3 py-2 text-xs font-medium text-white hover:bg-red-800 focus:ring-4 focus:ring-red-300 focus:outline-none dark:bg-red-600"
-                                >
-                                    <Trash2 class="mr-2 h-4 w-4" />Delete
-                                </button>
+                                <LinkBntVoir @click="ShowRole(role)" />
+                                <LinkBtnModifier :href="route('admin.roles.edit', role.id)" />
+                                <LinkBtnSupprimer @click="DeleteRole(role.id)" />
                             </TableCell>
                         </TableRow>
                     </TableBody>
                 </Table>
             </div>
+            <!-- Show Modal -->
+            <Modal :show="showRoleModal" @close="closeModal">
+                <div class="p-6">
+                    <h2 class="text-lg font-medium text-gray-900">Groupe Utilisateur</h2>
+                    <RoleShow :role="showingRole" />
+                </div>
+            </Modal>
         </div>
     </AppLayout>
 </template>
