@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import RoleShow from '@/components/admin/RoleShow.vue';
+import BtnConfirmSupprimer from '@/components/buttons/BtnConfirmSupprimer.vue';
 import LinkBntAjouter from '@/components/links/LinkBtnAjouter.vue';
+import LinkBtnAnnuler from '@/components/links/LinkBtnAnnuler.vue';
 import LinkBtnModifier from '@/components/links/LinkBtnModifier.vue';
 import LinkBtnSupprimer from '@/components/links/LinkBtnSupprimer.vue';
 import LinkBntVoir from '@/components/links/LinkBtnVoir.vue';
@@ -8,7 +10,7 @@ import Modal from '@/components/Modal.vue';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
-import { Head, router } from '@inertiajs/vue3';
+import { Head, useForm } from '@inertiajs/vue3';
 import { ref } from 'vue';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -30,7 +32,9 @@ defineProps<{
 }>();
 
 const showRoleModal = ref(false);
+const showDeleteModal = ref(false);
 const showingRole = ref<Record<string, any> | undefined>(undefined);
+const deletingRole = ref<Record<string, any> | undefined>(undefined);
 
 const closeModal = () => {
     showRoleModal.value = false;
@@ -42,19 +46,22 @@ const ShowRole = (role: Record<string, any>) => {
     showRoleModal.value = true;
 };
 
-function DeleteRole(id: number) {
-    if (confirm('Are you sure you want to delete this role?')) {
-        router.delete(route('admin.roles.destroy', id), {
-            preserveScroll: true,
-            onSuccess: () => {
-                console.log('role deleted successfully');
-            },
-            onError: (error) => {
-                console.error('Error deleting role:', error);
-            },
-        });
-    }
-}
+const confirmDelete = (role: Record<string, any>) => {
+    deletingRole.value = role;
+    showDeleteModal.value = true;
+};
+
+const form = useForm({});
+
+const deleteRole = () => {
+    if (!deletingRole.value) return;
+    form.delete(route('admin.roles.destroy', deletingRole.value.id), {
+        onSuccess: () => {
+            showDeleteModal.value = false;
+            deletingRole.value = undefined;
+        },
+    });
+};
 </script>
 
 <template>
@@ -91,13 +98,13 @@ function DeleteRole(id: number) {
                             <TableCell>
                                 <LinkBntVoir @click="ShowRole(role)" />
                                 <LinkBtnModifier :href="route('admin.roles.edit', role.id)" />
-                                <LinkBtnSupprimer @click="DeleteRole(role.id)" />
+                                <LinkBtnSupprimer @click="confirmDelete(role)" class="text-red-600 hover:text-red-900" />
                             </TableCell>
                         </TableRow>
                     </TableBody>
                 </Table>
             </div>
-            <!-- Show Modal -->
+            <!-- Show Role Modal -->
             <Modal :show="showRoleModal" @close="closeModal">
                 <div class="p-6">
                     <h2 class="text-lg font-medium text-gray-900">Groupe Utilisateur</h2>
@@ -105,5 +112,17 @@ function DeleteRole(id: number) {
                 </div>
             </Modal>
         </div>
+        <!-- Delete Confirmation Modal -->
+        <Modal :show="showDeleteModal" @close="showDeleteModal = false">
+            <div class="p-6">
+                <h2 class="text-lg font-medium text-gray-900">Supprimer un groupe utilisateur</h2>
+                <p class="mt-8 text-sm text-gray-600">Etes-vous sur de vouloir supprimer le groupe utilisateur suivant ?</p>
+                <p class="mt-2 w-full text-center text-xl">{{ deletingRole && deletingRole.name ? deletingRole.name : '' }}</p>
+                <div class="mt-6 flex justify-center space-x-4">
+                    <LinkBtnAnnuler @click="showDeleteModal = false" />
+                    <BtnConfirmSupprimer @click="deleteRole" :disabled="form.processing">Supprimer</BtnConfirmSupprimer>
+                </div>
+            </div>
+        </Modal>
     </AppLayout>
 </template>

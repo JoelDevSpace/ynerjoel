@@ -20,7 +20,7 @@ Route::group(['auth', 'verified'], function () {
     //Admin Routes Group
     Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
-        Route::resource('roles', RoleController::class)->names('roles');
+        Route::resource('roles', RoleController::class)->except('show')->names('roles');
         Route::resource('users', UserController::class)->names('users');
     });
 

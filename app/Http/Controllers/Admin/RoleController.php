@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Role\RoleCreateRequest;
 use App\Http\Requests\Admin\Role\RoleUpdateRequest;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 use Spatie\Permission\Models\Permission;
@@ -25,7 +24,7 @@ class RoleController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(): Response
+    public function create()
     {
         $permissions = Permission::all()->pluck('name', 'id');
         return Inertia::render('Admin/Roles/Create', compact('permissions'));
@@ -34,7 +33,7 @@ class RoleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(RoleCreateRequest $request): Response
+    public function store(RoleCreateRequest $request)
     {
         $role = Role::create([
             'name' => $request->name,
@@ -45,17 +44,9 @@ class RoleController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id): Response
     {
         $role = Role::findOrFail($id);
         $rolePermissions = $role->permissions->pluck('name');
@@ -83,6 +74,8 @@ class RoleController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $role = Role::findOrFail($id);
+        $role->delete();
+        return redirect()->route('admin.roles.index')->with('success', 'Role deleted successfully.');
     }
 }

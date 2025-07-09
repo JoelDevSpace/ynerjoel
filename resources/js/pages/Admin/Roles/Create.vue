@@ -1,13 +1,12 @@
 <script setup lang="ts">
+import BtnAjouter from '@/components/buttons/BtnAjouter.vue';
 import InputError from '@/components/InputError.vue';
 import LinkBtnRetour from '@/components/links/LinkBtnRetour.vue';
-import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head, useForm } from '@inertiajs/vue3';
-import { Save } from 'lucide-vue-next';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -72,7 +71,7 @@ const form = useForm({
                     </div>
                 </div>
                 <div class="flex items-center gap-4">
-                    <Button type="submit"><Save class="h-4 w-4" />Ajouter</Button>
+                    <BtnAjouter type="submit" />
                 </div>
             </form>
         </div>
