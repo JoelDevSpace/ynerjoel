@@ -65,7 +65,7 @@ function DeleteRole(id: number) {
                         <TableRow v-for="role in roles" :key="role.id">
                             <TableCell class="font-medium">{{ role.id }}</TableCell>
                             <TableCell>{{ role.name }}</TableCell>
-                            <TableCell>
+                            <TableCell class="flex flex-row flex-wrap">
                                 <span
                                     v-for="permission in role.permissions"
                                     :key="permission.id"

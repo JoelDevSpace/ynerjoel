@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Role\RoleCreateRequest;
+use App\Http\Requests\Admin\Role\RoleUpdateRequest;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -56,15 +57,25 @@ class RoleController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $role = Role::findOrFail($id);
+        $rolePermissions = $role->permissions->pluck('name');
+        $permissions = Permission::all()->pluck('name', 'id');
+        return Inertia::render('Admin/Roles/Edit', compact('role', 'permissions', 'rolePermissions'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(RoleUpdateRequest $request, string $id)
     {
-        //
+
+        $role = Role::findOrFail($id);
+        $role->name = $request->name;
+        $role->save();
+
+        $role->syncPermissions($request->permissions);
+
+        return redirect()->route('admin.roles.index');
     }
 
     /**
