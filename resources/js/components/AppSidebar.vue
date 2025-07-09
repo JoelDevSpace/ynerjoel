@@ -30,7 +30,7 @@ const data = {
             items: [
                 {
                     title: 'Utilisateurs',
-                    url: '#',
+                    url: '/admin/users',
                 },
                 {
                     title: 'Groupes Utilisateurs',
