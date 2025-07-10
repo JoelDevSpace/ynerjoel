@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import UserShow from '@/components/admin/UserShow.vue';
 import LinkBntAjouter from '@/components/links/LinkBtnAjouter.vue';
+import LinkBtnModifier from '@/components/links/LinkBtnModifier.vue';
 import LinkBntVoir from '@/components/links/LinkBtnVoir.vue';
 import Modal from '@/components/Modal.vue';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -88,6 +89,7 @@ const closeModal = () => {
                             </TableCell>
                             <TableCell>
                                 <LinkBntVoir @click="ShowUser(user)" />
+                                <LinkBtnModifier :href="route('admin.users.edit', user.id)" />
                             </TableCell>
                         </TableRow>
                     </TableBody>

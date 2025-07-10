@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\User\UserCreateRequest;
+use App\Http\Requests\Admin\User\UserUpdateRequest;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -51,15 +52,30 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $user = User::findOrFail($id);
+        $userRole = $user->roles->select(['id', 'name']);
+        $roles = Role::all()->select(['id', 'name']);
+        return Inertia::render('Admin/Users/Edit', compact('user', 'userRole', 'roles'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UserUpdateRequest $request, string $id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        if ($request->filled('password')) {
+            $request->validate(['password' => 'required|string|min:8']);
+            $user->password = Hash::make($request->password);
+        }
+
+        $user->save();
+
+        $user->syncRoles($request->input('role', []));
+
+        return redirect()->route('admin.users.index');
     }
 
     /**
