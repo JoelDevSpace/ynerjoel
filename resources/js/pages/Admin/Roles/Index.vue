@@ -115,8 +115,8 @@ const deleteRole = () => {
         <!-- Delete Confirmation Modal -->
         <Modal :show="showDeleteModal" @close="showDeleteModal = false">
             <div class="p-6">
-                <h2 class="text-lg font-medium text-gray-900">Supprimer un groupe utilisateur</h2>
-                <p class="mt-8 text-sm text-gray-600">Etes-vous sur de vouloir supprimer le groupe utilisateur suivant ?</p>
+                <h2 class="text-center text-lg font-medium text-gray-900">Supprimer un groupe utilisateur</h2>
+                <p class="mt-8 text-gray-600">Etes-vous sur de vouloir supprimer le groupe utilisateur suivant ?</p>
                 <p class="mt-2 w-full text-center text-xl">{{ deletingRole && deletingRole.name ? deletingRole.name : '' }}</p>
                 <div class="mt-6 flex justify-center space-x-4">
                     <LinkBtnAnnuler @click="showDeleteModal = false" />

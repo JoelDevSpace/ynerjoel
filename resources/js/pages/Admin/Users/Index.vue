@@ -1,13 +1,16 @@
 <script setup lang="ts">
 import UserShow from '@/components/admin/UserShow.vue';
+import BtnConfirmSupprimer from '@/components/buttons/BtnConfirmSupprimer.vue';
 import LinkBntAjouter from '@/components/links/LinkBtnAjouter.vue';
+import LinkBtnAnnuler from '@/components/links/LinkBtnAnnuler.vue';
 import LinkBtnModifier from '@/components/links/LinkBtnModifier.vue';
+import LinkBtnSupprimer from '@/components/links/LinkBtnSupprimer.vue';
 import LinkBntVoir from '@/components/links/LinkBtnVoir.vue';
 import Modal from '@/components/Modal.vue';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
-import { Head } from '@inertiajs/vue3';
+import { Head, useForm } from '@inertiajs/vue3';
 import { ref } from 'vue';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -44,14 +47,24 @@ const closeModal = () => {
 };
 
 //User delete modal
-//const showDeleteModal = ref(false);
-//const deletingUser = ref<Record<string, any> | undefined>(undefined);
-/*const confirmDelete = (user: Record<string, any>) => {
+const showDeleteModal = ref(false);
+const deletingUser = ref<Record<string, any> | undefined>(undefined);
+const confirmDelete = (user: Record<string, any>) => {
     deletingUser.value = user;
     showDeleteModal.value = true;
-};*/
+};
 
-//const form = useForm({});
+const form = useForm({});
+
+const deleteUser = () => {
+    if (!deletingUser.value) return;
+    form.delete(route('admin.users.destroy', deletingUser.value.id), {
+        onSuccess: () => {
+            showDeleteModal.value = false;
+            deletingUser.value = undefined;
+        },
+    });
+};
 </script>
 
 <template>
@@ -90,6 +103,7 @@ const closeModal = () => {
                             <TableCell>
                                 <LinkBntVoir @click="ShowUser(user)" />
                                 <LinkBtnModifier :href="route('admin.users.edit', user.id)" />
+                                <LinkBtnSupprimer @click="confirmDelete(user)" class="text-red-600 hover:text-red-900" />
                             </TableCell>
                         </TableRow>
                     </TableBody>
@@ -103,5 +117,20 @@ const closeModal = () => {
                 </div>
             </Modal>
         </div>
+        <!-- User Delete Confirmation Modal -->
+        <Modal :show="showDeleteModal" @close="showDeleteModal = false">
+            <div class="p-6">
+                <h2 class="text-center text-lg font-medium text-gray-900">Supprimer un utilisateur</h2>
+                <p class="mt-8 text-gray-600">Etes-vous sur de vouloir supprimer l'utilisateur suivant ?</p>
+                <p class="mt-2 w-full text-center text-xl">
+                    {{ deletingUser && deletingUser.name ? deletingUser.name : '' }} /
+                    {{ deletingUser && deletingUser.email ? deletingUser.email : '' }}
+                </p>
+                <div class="mt-6 flex justify-center space-x-4">
+                    <LinkBtnAnnuler @click="showDeleteModal = false" />
+                    <BtnConfirmSupprimer @click="deleteUser" :disabled="form.processing">Supprimer</BtnConfirmSupprimer>
+                </div>
+            </div>
+        </Modal>
     </AppLayout>
 </template>
