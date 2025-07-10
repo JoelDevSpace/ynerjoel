@@ -15,7 +15,11 @@ import { ref } from 'vue';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Administration | Gestion des utilisateurs',
+        title: 'Administration',
+        href: '/admin',
+    },
+    {
+        title: 'Liste des utilisateurs',
         href: '/users',
     },
 ];

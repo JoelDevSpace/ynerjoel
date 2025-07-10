@@ -17,6 +17,10 @@ class PageController extends Controller
         //$countRoles = Role::count();
         return Inertia::render('Dashboard');
     }
+    public function admin()
+    {
+        return Inertia::render('Admin/Admin');
+    }
 
 
 }

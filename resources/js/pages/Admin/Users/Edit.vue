@@ -10,7 +10,15 @@ import { Head, useForm } from '@inertiajs/vue3';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Administration | Gestion des utilisateurs | Modification',
+        title: 'Administration',
+        href: '/admin',
+    },
+    {
+        title: 'Utilisateurs',
+        href: '/users',
+    },
+    {
+        title: 'Modifier un utilisateur',
         href: '/Users/edit',
     },
 ];
@@ -65,7 +73,7 @@ const form = useForm({
                     <InputError class="mt-2" :message="form.errors.email" />
                 </div>
                 <div class="grid gap-2">
-                    <Label for="password">Password :</Label>
+                    <Label for="password">Mot de passe :</Label>
                     <input
                         id="password"
                         name="password"
@@ -73,7 +81,7 @@ const form = useForm({
                         :tabindex="3"
                         class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-base shadow-sm transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                         v-model="form.password"
-                        placeholder="Enter password"
+                        placeholder="Renseigner un mot de passe"
                     />
                     <InputError class="mt-2" :message="form.errors.password" />
                 </div>

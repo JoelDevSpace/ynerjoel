@@ -25,6 +25,7 @@ Route::group(['auth', 'verified'], function () {
         Route::resource('users', UserController::class)->except('show')->names('users');
     });
 
+    Route::get('admin', [PageController::class, 'admin'])->name('admin');
     Route::get('dashboard', [PageController::class, 'dashboard'])->name('dashboard');
 });
 

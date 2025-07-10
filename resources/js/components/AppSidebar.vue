@@ -24,7 +24,7 @@ const data = {
     navMain: [
         {
             title: 'Administration',
-            url: '#',
+            url: '/admin',
             icon: Wrench,
             isActive: true,
             items: [

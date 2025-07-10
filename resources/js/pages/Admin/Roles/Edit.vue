@@ -10,7 +10,15 @@ import { Head, useForm } from '@inertiajs/vue3';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: "Administration | Gestion des groupes d'utilisateurs | Modification",
+        title: 'Administration',
+        href: '/admin',
+    },
+    {
+        title: 'Groupes utilisateurs',
+        href: '/roles',
+    },
+    {
+        title: 'Modifier un groupe utilisateurs',
         href: '/Roles/edit',
     },
 ];
