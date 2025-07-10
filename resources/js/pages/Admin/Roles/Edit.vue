@@ -10,7 +10,7 @@ import { Head, useForm } from '@inertiajs/vue3';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Modifier un groupe utilisateur',
+        title: "Administration | Gestion des groupes d'utilisateurs | Modification",
         href: '/Roles/edit',
     },
 ];

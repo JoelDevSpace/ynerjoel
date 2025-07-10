@@ -22,7 +22,7 @@ Route::group(['auth', 'verified'], function () {
     Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
         Route::resource('roles', RoleController::class)->except('show')->names('roles');
-        Route::resource('users', UserController::class)->names('users');
+        Route::resource('users', UserController::class)->except('show')->names('users');
     });
 
     Route::get('dashboard', [PageController::class, 'dashboard'])->name('dashboard');

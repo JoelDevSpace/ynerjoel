@@ -10,7 +10,7 @@ import { Head, useForm } from '@inertiajs/vue3';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Ajouter un utilisateur',
+        title: 'Administration | Gestion des utilisateurs | Ajout',
         href: '/Users/create',
     },
 ];

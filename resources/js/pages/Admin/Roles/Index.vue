@@ -15,7 +15,7 @@ import { ref } from 'vue';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Groupes Utilisateurs',
+        title: "Administration | Gestion des groupes d'utilisateurs",
         href: '/roles',
     },
 ];
@@ -107,7 +107,7 @@ const deleteRole = () => {
             <!-- Show Role Modal -->
             <Modal :show="showRoleModal" @close="closeModal">
                 <div class="p-6">
-                    <h2 class="text-lg font-medium text-gray-900">Groupe Utilisateur</h2>
+                    <h2 class="text-center text-lg font-medium text-gray-900">Groupe Utilisateur</h2>
                     <RoleShow :role="showingRole" />
                 </div>
             </Modal>

@@ -10,7 +10,7 @@ import { Head, useForm } from '@inertiajs/vue3';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Ajouter un groupe utilisateur',
+        title: "Administration | Gestion des groupes d'utilisateurs | Ajout",
         href: '/Roles/create',
     },
 ];

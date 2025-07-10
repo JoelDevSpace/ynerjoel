@@ -1,13 +1,17 @@
 <script setup lang="ts">
+import UserShow from '@/components/admin/UserShow.vue';
 import LinkBntAjouter from '@/components/links/LinkBtnAjouter.vue';
+import LinkBntVoir from '@/components/links/LinkBtnVoir.vue';
+import Modal from '@/components/Modal.vue';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/vue3';
+import { ref } from 'vue';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Utilisateurs',
+        title: 'Administration | Gestion des utilisateurs',
         href: '/users',
     },
 ];
@@ -23,6 +27,30 @@ defineProps<{
         }>;
     }>;
 }>();
+
+//User show modal
+const showUserModal = ref(false);
+const showingUser = ref<Record<string, any> | undefined>(undefined);
+
+const ShowUser = (user: Record<string, any>) => {
+    showingUser.value = user;
+    showUserModal.value = true;
+};
+
+const closeModal = () => {
+    showUserModal.value = false;
+    showingUser.value = undefined;
+};
+
+//User delete modal
+//const showDeleteModal = ref(false);
+//const deletingUser = ref<Record<string, any> | undefined>(undefined);
+/*const confirmDelete = (user: Record<string, any>) => {
+    deletingUser.value = user;
+    showDeleteModal.value = true;
+};*/
+
+//const form = useForm({});
 </script>
 
 <template>
@@ -58,11 +86,20 @@ defineProps<{
                                     {{ role.name }}
                                 </span>
                             </TableCell>
-                            <TableCell> </TableCell>
+                            <TableCell>
+                                <LinkBntVoir @click="ShowUser(user)" />
+                            </TableCell>
                         </TableRow>
                     </TableBody>
                 </Table>
             </div>
+            <!-- Show User Modal -->
+            <Modal :show="showUserModal" @close="closeModal">
+                <div class="p-6">
+                    <h2 class="text-center text-lg font-medium text-gray-900">Utilisateur</h2>
+                    <UserShow :user="showingUser" />
+                </div>
+            </Modal>
         </div>
     </AppLayout>
 </template>
