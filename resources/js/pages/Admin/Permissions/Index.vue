@@ -6,6 +6,7 @@ import LinkBtnModifier from '@/components/links/LinkBtnModifier.vue';
 import LinkBtnSupprimer from '@/components/links/LinkBtnSupprimer.vue';
 import Modal from '@/components/Modal.vue';
 import Pagination from '@/components/Pagination.vue';
+import SearchForm from '@/components/SearchForm.vue';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
@@ -53,8 +54,9 @@ const deletePermission = () => {
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
-            <div>
-                <LinkBntAjouter :href="route('admin.permissions.create')" :text="'une permission'" />
+            <div class="flex flex-row justify-between">
+                <SearchForm class="ml-20" />
+                <LinkBntAjouter :href="route('admin.permissions.create')" :text="'une permission'" class="mr-60" />
             </div>
             <div class="overflow-x-auto p-3">
                 <Table>

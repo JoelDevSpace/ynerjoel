@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import UserShow from '@/components/admin/UserShow.vue';
 import BtnConfirmSupprimer from '@/components/buttons/BtnConfirmSupprimer.vue';
+import InputField from '@/Components/InputField.vue';
 import LinkBntAjouter from '@/components/links/LinkBtnAjouter.vue';
 import LinkBtnAnnuler from '@/components/links/LinkBtnAnnuler.vue';
 import LinkBtnModifier from '@/components/links/LinkBtnModifier.vue';
@@ -11,7 +12,7 @@ import Pagination from '@/components/Pagination.vue';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
-import { Head, useForm } from '@inertiajs/vue3';
+import { Head, router, useForm } from '@inertiajs/vue3';
 import { ref } from 'vue';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -25,10 +26,18 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-defineProps<{
+const props = defineProps<{
     users: any;
+    searchTerm: string;
 }>();
 
+const search = () => {
+    router.get(route('admin.users.index'), { search: formSearch.search });
+};
+
+const formSearch = useForm({
+    search: props.searchTerm,
+});
 //User show modal
 const showUserModal = ref(false);
 const showingUser = ref<Record<string, any> | undefined>(undefined);
@@ -69,8 +78,12 @@ const deleteUser = () => {
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
-            <div>
-                <LinkBntAjouter :href="route('admin.users.create')" :text="'un utilisateur'" />
+            <div class="flex flex-row justify-between">
+                <form @submit.prevent="search">
+                    <InputField type="search" label="" icon="magnifying-glass" placeholder="Chercher..." v-model="formSearch.search" />
+                </form>
+
+                <LinkBntAjouter :href="route('admin.users.create')" :text="'un utilisateur'" class="mt-2 mr-60" />
             </div>
             <div class="overflow-x-auto p-3">
                 <Table>

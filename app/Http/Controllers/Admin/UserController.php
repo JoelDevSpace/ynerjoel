@@ -10,16 +10,22 @@ use Inertia\Response;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(): response
+    public function index(Request $request): response
     {
-        $users = User::with('roles')->paginate(12);
-        return Inertia::render('Admin/Users/Index', compact('users'));
+        $users = User::with('roles')
+            ->filter(request(['search']))
+            ->paginate(12)
+            ->withQueryString();
+        $request->filled('search') ? $searchTerm = request(['search'])['search'] : $searchTerm = "";
+
+        return Inertia::render('Admin/Users/Index', compact('users', 'searchTerm'));
     }
 
     /**

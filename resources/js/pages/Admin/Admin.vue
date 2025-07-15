@@ -49,6 +49,7 @@ defineProps<{
                     <ul>
                         <li class="bold text-red-700 line-through">Pagination</li>
                         <li class="line-through">toaster message flash</li>
+                        <li>Ajouter les search sur les pages index</li>
                         <li>tester les datatables</li>
                         <li>tester les onglets</li>
                         <li>contient {{ countUsers }} utilisateurs</li>
