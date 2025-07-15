@@ -11,15 +11,15 @@ import { Head, useForm } from '@inertiajs/vue3';
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Administration',
-        href: '/admin',
+        href: route('admin'),
     },
     {
-        title: 'Groupes utilisateurs',
-        href: '/roles',
+        title: 'Utilisateurs',
+        href: route('admin.roles.index'),
     },
     {
         title: 'Modifier un groupe utilisateurs',
-        href: '/Roles/edit',
+        href: route('admin.roles.update'),
     },
 ];
 const props = defineProps<{

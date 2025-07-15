@@ -38,7 +38,7 @@ const data = {
                 },
                 {
                     title: 'Permissions',
-                    url: '#',
+                    url: '/admin/permissions',
                 },
             ],
         },

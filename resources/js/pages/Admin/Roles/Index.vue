@@ -16,11 +16,11 @@ import { ref } from 'vue';
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Administration',
-        href: '/admin',
+        href: route('admin'),
     },
     {
-        title: 'Liste des groupes utilisateurs',
-        href: '/roles',
+        title: 'Liste des groupes tilisateurs',
+        href: route('admin.roles.index'),
     },
 ];
 

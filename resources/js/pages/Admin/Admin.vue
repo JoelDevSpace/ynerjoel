@@ -41,7 +41,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                 <div class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
                     <p>TODO Design</p>
                     <ul>
-                        <li class="bold text-red-700">Pagination</li>
+                        <li class="bold text-red-700 line-through">Pagination</li>
                         <li>tester les datatables</li>
                         <li>tester les onglets</li>
                     </ul>

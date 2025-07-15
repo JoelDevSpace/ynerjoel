@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -21,6 +22,7 @@ Route::group(['auth', 'verified'], function () {
     //Admin Routes Group
     Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
+        Route::resource('permissions', PermissionController::class)->except('show')->names('permissions');
         Route::resource('roles', RoleController::class)->except('show')->names('roles');
         Route::resource('users', UserController::class)->except('show')->names('users');
     });
