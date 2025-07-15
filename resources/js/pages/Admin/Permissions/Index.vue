@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import LinkBntAjouter from '@/components/links/LinkBtnAjouter.vue';
+import LinkBtnModifier from '@/components/links/LinkBtnModifier.vue';
 import Pagination from '@/components/Pagination.vue';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/AppLayout.vue';
@@ -45,7 +46,9 @@ defineProps<{
                             <TableCell class="capitalize">{{ permission.name.split('.')[0].toLowerCase() }}</TableCell>
                             <TableCell class="capitalize">{{ permission.name.split('.')[1].toLowerCase() }}</TableCell>
                             <TableCell class="capitalize">{{ permission.name.split('.')[2].toLowerCase() }}</TableCell>
-                            <TableCell> </TableCell>
+                            <TableCell>
+                                <LinkBtnModifier :href="route('admin.permissions.edit', permission.id)" />
+                            </TableCell>
                         </TableRow>
                     </TableBody>
                 </Table>

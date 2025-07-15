@@ -19,7 +19,7 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: route('admin'),
     },
     {
-        title: 'Liste des groupes tilisateurs',
+        title: 'Liste des groupes utilisateurs',
         href: route('admin.roles.index'),
     },
 ];
@@ -80,15 +80,13 @@ const deleteRole = () => {
                 <Table>
                     <TableHeader>
                         <TableRow>
-                            <TableHead class="w-[80px]">ID</TableHead>
-                            <TableHead>Nom</TableHead>
+                            <TableHead>Nom du groupe</TableHead>
                             <TableHead>Liste des Permissions</TableHead>
                             <TableHead>Actions</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
                         <TableRow v-for="role in roles" :key="role.id">
-                            <TableCell class="font-medium">{{ role.id }}</TableCell>
                             <TableCell>{{ role.name }}</TableCell>
                             <TableCell class="flex flex-row flex-wrap">
                                 <span

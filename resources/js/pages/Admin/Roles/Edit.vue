@@ -19,7 +19,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
     {
         title: 'Modifier un groupe utilisateurs',
-        href: route('admin.roles.update'),
+        href: route('admin.roles.index'),
     },
 ];
 const props = defineProps<{

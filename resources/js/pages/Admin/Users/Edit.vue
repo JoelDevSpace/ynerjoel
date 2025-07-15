@@ -19,7 +19,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
     {
         title: 'Modifier un utilisateur',
-        href: route('admin.users.update'),
+        href: route('admin.users.index'),
     },
 ];
 
@@ -45,7 +45,7 @@ const form = useForm({
 </script>
 
 <template>
-    <Head title="Ajout Utilisateur" />
+    <Head title="Modification Utilisateur" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">

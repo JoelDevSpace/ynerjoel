@@ -28,7 +28,11 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Admin/Permissions/Create', ['modules' => ModulesEnum::options(), 'elements' => ElementsEnum::options(), 'actions' => ActionsEnum::options()]);
+        return Inertia::render('Admin/Permissions/Create', [
+            'modules' => ModulesEnum::options(),
+            'elements' => ElementsEnum::options(),
+            'actions' => ActionsEnum::options()
+        ]);
     }
 
     /**
@@ -44,19 +48,15 @@ class PermissionController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
     {
-        //
+        $permission = Permission::findOrFail($id)->only('name', 'id');
+        $modules = ModulesEnum::options();
+        $elements = ElementsEnum::options();
+        $actions = ActionsEnum::options();
+        return Inertia::render('Admin/Permissions/Edit', compact('permission', 'modules', 'elements', 'actions'));
     }
 
     /**
@@ -64,7 +64,12 @@ class PermissionController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+
+        $permission = Permission::findOrFail($id);
+        $permission->name = implode(".", [$request->module, $request->element, $request->action]);
+        $permission->save();
+
+        return redirect()->route('admin.permissions.index');
     }
 
     /**
