@@ -13,13 +13,18 @@ class PageController extends Controller
 {
     public function dashboard()
     {
-        //$countUsers = User::count();
-        //$countRoles = Role::count();
         return Inertia::render('Dashboard');
     }
     public function admin()
     {
-        return Inertia::render('Admin/Admin');
+        $countUsers = User::count();
+        $countRoles = Role::count();
+        $countPermissions = Permission::count();
+        return Inertia::render('Admin/Admin', [
+            'countUsers' => $countUsers,
+            'countRoles' => $countRoles,
+            'countPermissions' => $countPermissions,
+        ]);
     }
 
 

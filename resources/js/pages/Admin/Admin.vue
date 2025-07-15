@@ -10,6 +10,12 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '/admin',
     },
 ];
+
+defineProps<{
+    countUsers: number;
+    countRoles: number;
+    countPermissions: number;
+}>();
 </script>
 
 <template>
@@ -45,6 +51,9 @@ const breadcrumbs: BreadcrumbItem[] = [
                         <li class="line-through">toaster message flash</li>
                         <li>tester les datatables</li>
                         <li>tester les onglets</li>
+                        <li>contient {{ countUsers }} utilisateurs</li>
+                        <li>contient {{ countRoles }} groupes utilisateurs</li>
+                        <li>contient {{ countPermissions }} permissions</li>
                     </ul>
                 </div>
             </div>
