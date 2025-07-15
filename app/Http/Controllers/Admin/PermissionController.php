@@ -11,6 +11,7 @@ use Spatie\Permission\Models\Permission;
 use Inertia\Inertia;
 use Inertia\Response;
 use App\Http\Requests\Admin\Permission\PermissionCreateRequest;
+use App\Http\Requests\Admin\Permission\PermissionUpdateRequest;
 
 class PermissionController extends Controller
 {
@@ -62,7 +63,7 @@ class PermissionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(PermissionUpdateRequest $request, string $id)
     {
 
         $permission = Permission::findOrFail($id);
