@@ -7,6 +7,7 @@ import LinkBtnModifier from '@/components/links/LinkBtnModifier.vue';
 import LinkBtnSupprimer from '@/components/links/LinkBtnSupprimer.vue';
 import LinkBntVoir from '@/components/links/LinkBtnVoir.vue';
 import Modal from '@/components/Modal.vue';
+import Pagination from '@/components/Pagination.vue';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
@@ -25,15 +26,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 defineProps<{
-    users: Array<{
-        id: number;
-        name: string;
-        email: string;
-        roles: Array<{
-            id: number;
-            name: string;
-        }>;
-    }>;
+    users: any;
 }>();
 
 //User show modal
@@ -91,7 +84,7 @@ const deleteUser = () => {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        <TableRow v-for="user in users" :key="user.id">
+                        <TableRow v-for="user in users.data" :key="user.id">
                             <TableCell class="font-medium">{{ user.id }}</TableCell>
                             <TableCell>{{ user.name }}</TableCell>
                             <TableCell>{{ user.email }}</TableCell>
@@ -112,6 +105,9 @@ const deleteUser = () => {
                         </TableRow>
                     </TableBody>
                 </Table>
+                <div v-if="users.last_page > 1" class="float-end">
+                    <Pagination :pagination="users.links" />
+                </div>
             </div>
             <!-- Show User Modal -->
             <Modal :show="showUserModal" @close="closeModal">

@@ -19,7 +19,7 @@ class UserController extends Controller
      */
     public function index(): response
     {
-        $users = User::with('roles')->get();
+        $users = User::with('roles')->paginate(5);
         return Inertia::render('Admin/Users/Index', compact('users'));
     }
 
