@@ -43,7 +43,7 @@ class UserController extends Controller
         ]);
 
         $user->assignRole($request->input('role', []));
-        return redirect()->route('admin.users.index')->with('success', 'User created successfully.');
+        return redirect()->route('admin.users.index')->with('success', 'Utilisateur ajouté avec succès.');
     }
 
     /**
@@ -74,7 +74,7 @@ class UserController extends Controller
 
         $user->syncRoles($request->input('role', []));
 
-        return redirect()->route('admin.users.index');
+        return redirect()->route('admin.users.index')->with('success', 'Utilisateur mis à jour avec succès.');
     }
 
     /**
@@ -84,6 +84,6 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $user->delete();
-        return redirect()->route('admin.users.index')->with('success', 'Role deleted successfully.');
+        return redirect()->route('admin.users.index')->with('success', 'Utilisateur supprimé avec succès.');
     }
 }

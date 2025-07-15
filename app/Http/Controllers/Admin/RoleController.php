@@ -40,7 +40,7 @@ class RoleController extends Controller
         ]);
         $role->syncPermissions($request->permissions);
 
-        return redirect()->route('admin.roles.index');
+        return redirect()->route('admin.roles.index')->with('success', 'Groupe utilisateur ajouté avec succès.');
     }
 
     /**
@@ -66,7 +66,7 @@ class RoleController extends Controller
 
         $role->syncPermissions($request->permissions);
 
-        return redirect()->route('admin.roles.index');
+        return redirect()->route('admin.roles.index')->with('success', 'Groupe utilisateur mis à jour avec succès.');
     }
 
     /**
@@ -76,6 +76,6 @@ class RoleController extends Controller
     {
         $role = Role::findOrFail($id);
         $role->delete();
-        return redirect()->route('admin.roles.index')->with('success', 'Role deleted successfully.');
+        return redirect()->route('admin.roles.index')->with('success', 'Groupe utilisateur supprimé avec succès.');
     }
 }

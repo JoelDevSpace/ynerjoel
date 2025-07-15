@@ -21,7 +21,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                 <div class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
                     <p>TODO Administration</p>
                     <ul>
-                        <li>CRUD pour les permissions</li>
+                        <li class="line-through">CRUD pour les permissions</li>
                         <li>CRUD pour les types de clients</li>
                         <li>CRUD pour les types de personnes morales</li>
                         <li>CRUD pour les types de fiche FOS</li>
@@ -42,6 +42,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                     <p>TODO Design</p>
                     <ul>
                         <li class="bold text-red-700 line-through">Pagination</li>
+                        <li class="line-through">toaster message flash</li>
                         <li>tester les datatables</li>
                         <li>tester les onglets</li>
                     </ul>

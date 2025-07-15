@@ -19,7 +19,7 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        $permissions = Permission::paginate(15);
+        $permissions = Permission::paginate(12);
         return Inertia::render('Admin/Permissions/Index', compact('permissions'));
     }
 
@@ -44,7 +44,7 @@ class PermissionController extends Controller
             'name' => implode(".", [$request->module, $request->element, $request->action]),
         ]);
 
-        return redirect()->route('admin.permissions.index')->with('success', 'User created successfully.');
+        return redirect()->route('admin.permissions.index')->with('success', 'Permission ajoutée avec succès.');
     }
 
     /**
@@ -69,7 +69,8 @@ class PermissionController extends Controller
         $permission->name = implode(".", [$request->module, $request->element, $request->action]);
         $permission->save();
 
-        return redirect()->route('admin.permissions.index');
+        return redirect()->route('admin.permissions.index')->with('success', 'Permission mise à jour avec succès.');
+        ;
     }
 
     /**
