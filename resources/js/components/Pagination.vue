@@ -21,7 +21,7 @@ defineProps({
                     <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
                         <div>
                             <p class="text-sm text-gray-700">
-                                Montre les resulats
+                                Resultats
                                 <!-- space -->
                                 <span class="font-medium">{{ data.from }}</span>
                                 <!-- space -->
@@ -35,7 +35,7 @@ defineProps({
                                     {{ data.total }}
                                 </span>
                                 <!-- space -->
-                                resultats.
+                                au total.
                             </p>
                         </div>
                         <div>
