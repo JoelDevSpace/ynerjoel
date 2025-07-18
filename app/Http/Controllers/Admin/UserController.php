@@ -20,11 +20,9 @@ class UserController extends Controller
     public function index(Request $request): response
     {
         $users = User::with('roles')
-            ->filter(request(['search']))
-            ->paginate(12)
-            ->withQueryString();
+            ->search($request)
+            ->paginate(12);
         $request->filled('search') ? $searchTerm = request(['search'])['search'] : $searchTerm = "";
-
         return Inertia::render('Admin/Users/Index', compact('users', 'searchTerm'));
     }
 

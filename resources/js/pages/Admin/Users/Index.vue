@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import UserShow from '@/components/admin/UserShow.vue';
 import BtnConfirmSupprimer from '@/components/buttons/BtnConfirmSupprimer.vue';
-import InputField from '@/Components/InputField.vue';
+import InputField from '@/components/InputField.vue';
 import LinkBntAjouter from '@/components/links/LinkBtnAjouter.vue';
 import LinkBtnAnnuler from '@/components/links/LinkBtnAnnuler.vue';
 import LinkBtnModifier from '@/components/links/LinkBtnModifier.vue';
@@ -12,8 +12,8 @@ import Pagination from '@/components/Pagination.vue';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
-import { Head, router, useForm } from '@inertiajs/vue3';
-import { ref } from 'vue';
+import { Head, router, useForm, usePage } from '@inertiajs/vue3';
+import { computed, ref, watch } from 'vue';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -26,18 +26,48 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-const props = defineProps<{
-    users: any;
-    searchTerm: string;
-}>();
-
-const search = () => {
-    router.get(route('admin.users.index'), { search: formSearch.search });
-};
-
-const formSearch = useForm({
-    search: props.searchTerm,
+defineProps({
+    users: {
+        type: Object,
+        required: true,
+    },
 });
+
+//User Search
+const search = ref(usePage().props.searchTerm),
+    pageNumber = ref(1);
+
+const usersUrl = computed(() => {
+    const url = new URL(route('admin.users.index'));
+    url.searchParams.append('page', String(pageNumber.value));
+
+    if (search.value) {
+        url.searchParams.append('search', String(search.value));
+    }
+
+    return url;
+});
+const updatedPageNumber = (link: any) => {
+    pageNumber.value = link.url.split('=')[1];
+};
+watch(
+    () => usersUrl.value,
+    (updatedUsersUrl) => {
+        router.visit(updatedUsersUrl, {
+            preserveScroll: true,
+            preserveState: true,
+            replace: true,
+        });
+    },
+);
+watch(
+    () => search.value,
+    (value) => {
+        if (value) {
+            pageNumber.value = 1;
+        }
+    },
+);
 //User show modal
 const showUserModal = ref(false);
 const showingUser = ref<Record<string, any> | undefined>(undefined);
@@ -71,6 +101,10 @@ const deleteUser = () => {
         },
     });
 };
+const CancelDeleteUser = () => {
+    showDeleteModal.value = false;
+    deletingUser.value = undefined;
+};
 </script>
 
 <template>
@@ -79,13 +113,19 @@ const deleteUser = () => {
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
             <div class="flex flex-row justify-between">
-                <form @submit.prevent="search">
-                    <InputField type="search" label="" icon="magnifying-glass" placeholder="Chercher..." v-model="formSearch.search" />
-                </form>
+                <InputField
+                    v-model="search"
+                    type="search"
+                    id="search"
+                    label=""
+                    autocomplete="off"
+                    icon="magnifying-glass"
+                    placeholder="Chercher..."
+                />
 
                 <LinkBntAjouter :href="route('admin.users.create')" :text="'un utilisateur'" class="mt-2 mr-60" />
             </div>
-            <div class="overflow-x-auto p-3">
+            <div class="overflow-x-auto p-3" v-if="Object.keys(users.data).length">
                 <Table>
                     <TableHeader>
                         <TableRow>
@@ -118,9 +158,10 @@ const deleteUser = () => {
                         </TableRow>
                     </TableBody>
                 </Table>
-                <div v-if="users.last_page > 1" class="float-end">
-                    <Pagination :pagination="users.links" />
-                </div>
+                <Pagination :data="users" :updatedPageNumber="updatedPageNumber" />
+            </div>
+            <div class="overflow-x-auto p-3" v-else>
+                <p>Il n'y a pas de résultats pour cette recherche.</p>
             </div>
             <!-- Show User Modal -->
             <Modal :show="showUserModal" @close="closeModal">
@@ -131,7 +172,7 @@ const deleteUser = () => {
             </Modal>
         </div>
         <!-- User Delete Confirmation Modal -->
-        <Modal :show="showDeleteModal" @close="showDeleteModal = false">
+        <Modal :show="showDeleteModal" @close="CancelDeleteUser">
             <div class="p-6">
                 <h2 class="text-center text-lg font-medium text-gray-900">Supprimer un utilisateur</h2>
                 <p class="mt-8 text-gray-600">Etes-vous sur de vouloir supprimer l'utilisateur suivant ?</p>
@@ -140,7 +181,7 @@ const deleteUser = () => {
                     {{ deletingUser && deletingUser.email ? deletingUser.email : '' }}
                 </p>
                 <div class="mt-6 flex justify-center space-x-4">
-                    <LinkBtnAnnuler @click="showDeleteModal = false" />
+                    <LinkBtnAnnuler @click="CancelDeleteUser" />
                     <BtnConfirmSupprimer @click="deleteUser" :disabled="form.processing">Supprimer</BtnConfirmSupprimer>
                 </div>
             </div>

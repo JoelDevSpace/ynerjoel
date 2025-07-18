@@ -23,10 +23,16 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: route('admin.permissions.index'),
     },
 ];
-
-defineProps<{
-    permissions: any;
-}>();
+const pageNumber = ref(1);
+const updatedPageNumber = (link) => {
+    pageNumber.value = link.url.split('=')[1];
+};
+defineProps({
+    permissions: {
+        type: Object,
+        required: true,
+    },
+});
 
 const showDeleteModal = ref(false);
 const deletingPermission = ref<Record<string, any> | undefined>(undefined);
@@ -80,9 +86,7 @@ const deletePermission = () => {
                         </TableRow>
                     </TableBody>
                 </Table>
-                <div v-if="permissions.last_page > 1" class="float-end">
-                    <Pagination :pagination="permissions.links" />
-                </div>
+                <Pagination :data="permissions" :updatedPageNumber="updatedPageNumber" />
             </div>
         </div>
         <!-- permission Delete Confirmation Modal -->

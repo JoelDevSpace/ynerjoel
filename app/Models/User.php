@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 
 class User extends Authenticatable
 {
@@ -47,12 +49,16 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    public function scopeFilter($query, array $filters)
+
+    public function scopeSearch(Builder $query, Request $request)
     {
-        if ($filters['search'] ?? false) {
-            $query
-                ->where('name', 'like', '%' . request('search') . '%')
-                ->orWhere('email', 'like', '%' . request('search') . '%');
-        }
+        return $query->where(function ($query) use ($request) {
+            return $query->when($request->search, function ($query) use ($request) {
+                return $query->where(function ($query) use ($request) {
+                    $query->where('name', 'like', '%' . $request->search . '%')
+                        ->orWhere('email', 'like', '%' . $request->search . '%');
+                });
+            });
+        });
     }
 }
