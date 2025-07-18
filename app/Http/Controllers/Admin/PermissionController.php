@@ -18,10 +18,13 @@ class PermissionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $permissions = Permission::paginate(12);
-        return Inertia::render('Admin/Permissions/Index', compact('permissions'));
+
+        $permissions = Permission::where('name', 'like', '%' . $request->search . '%')
+            ->paginate(12);
+        $request->filled('search') ? $searchTerm = request(['search'])['search'] : $searchTerm = "";
+        return Inertia::render('Admin/Permissions/Index', compact('permissions', 'searchTerm'));
     }
 
     /**

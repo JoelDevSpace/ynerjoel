@@ -113,16 +113,7 @@ const CancelDeleteUser = () => {
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
             <div class="flex flex-row justify-between">
-                <InputField
-                    v-model="search"
-                    type="search"
-                    id="search"
-                    label=""
-                    autocomplete="off"
-                    icon="magnifying-glass"
-                    placeholder="Chercher..."
-                />
-
+                <InputField v-model="search" type="search" id="search" label="" autocomplete="off" icon="" placeholder="Chercher..." />
                 <LinkBntAjouter :href="route('admin.users.create')" :text="'un utilisateur'" class="mt-2 mr-60" />
             </div>
             <div class="overflow-x-auto p-3" v-if="Object.keys(users.data).length">

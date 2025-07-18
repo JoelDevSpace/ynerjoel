@@ -1,17 +1,17 @@
 <script setup lang="ts">
 import BtnConfirmSupprimer from '@/components/buttons/BtnConfirmSupprimer.vue';
+import InputField from '@/components/InputField.vue';
 import LinkBntAjouter from '@/components/links/LinkBtnAjouter.vue';
 import LinkBtnAnnuler from '@/components/links/LinkBtnAnnuler.vue';
 import LinkBtnModifier from '@/components/links/LinkBtnModifier.vue';
 import LinkBtnSupprimer from '@/components/links/LinkBtnSupprimer.vue';
 import Modal from '@/components/Modal.vue';
 import Pagination from '@/components/Pagination.vue';
-import SearchForm from '@/components/SearchForm.vue';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
-import { Head, useForm } from '@inertiajs/vue3';
-import { ref } from 'vue';
+import { Head, router, useForm, usePage } from '@inertiajs/vue3';
+import { computed, ref, watch } from 'vue';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -23,10 +23,7 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: route('admin.permissions.index'),
     },
 ];
-const pageNumber = ref(1);
-const updatedPageNumber = (link) => {
-    pageNumber.value = link.url.split('=')[1];
-};
+
 defineProps({
     permissions: {
         type: Object,
@@ -34,6 +31,43 @@ defineProps({
     },
 });
 
+//Permission Search
+const search = ref(usePage().props.searchTerm),
+    pageNumber = ref(1);
+
+const permissionsUrl = computed(() => {
+    const url = new URL(route('admin.permissions.index'));
+    url.searchParams.append('page', String(pageNumber.value));
+
+    if (search.value) {
+        url.searchParams.append('search', String(search.value));
+    }
+
+    return url;
+});
+
+const updatedPageNumber = (link: any) => {
+    pageNumber.value = link.url.split('=')[1];
+};
+watch(
+    () => permissionsUrl.value,
+    (updatedPermissionsUrl) => {
+        router.visit(updatedPermissionsUrl, {
+            preserveScroll: true,
+            preserveState: true,
+            replace: true,
+        });
+    },
+);
+watch(
+    () => search.value,
+    (value) => {
+        if (value) {
+            pageNumber.value = 1;
+        }
+    },
+);
+//Permission Delete modal
 const showDeleteModal = ref(false);
 const deletingPermission = ref<Record<string, any> | undefined>(undefined);
 
@@ -61,8 +95,8 @@ const deletePermission = () => {
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
             <div class="flex flex-row justify-between">
-                <SearchForm class="ml-20" />
-                <LinkBntAjouter :href="route('admin.permissions.create')" :text="'une permission'" class="mr-60" />
+                <InputField v-model="search" type="search" id="search" label="" autocomplete="off" icon="" placeholder="Chercher..." />
+                <LinkBntAjouter :href="route('admin.permissions.create')" :text="'une permission'" class="mt-2 mr-60" />
             </div>
             <div class="overflow-x-auto p-3">
                 <Table>
