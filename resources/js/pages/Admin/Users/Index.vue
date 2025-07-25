@@ -4,15 +4,14 @@ import BtnConfirmSupprimer from '@/components/buttons/BtnConfirmSupprimer.vue';
 import InputField from '@/components/InputField.vue';
 import LinkBntAjouter from '@/components/links/LinkBtnAjouter.vue';
 import LinkBtnAnnuler from '@/components/links/LinkBtnAnnuler.vue';
-import LinkBtnModifier from '@/components/links/LinkBtnModifier.vue';
-import LinkBtnSupprimer from '@/components/links/LinkBtnSupprimer.vue';
-import LinkBntVoir from '@/components/links/LinkBtnVoir.vue';
 import Modal from '@/components/Modal.vue';
 import Pagination from '@/components/Pagination.vue';
+import { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarSeparator, MenubarTrigger } from '@/components/ui/menubar';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head, router, useForm, usePage } from '@inertiajs/vue3';
+import { Ellipsis, Eye, Pencil, Trash2 } from 'lucide-vue-next';
 import { computed, ref, watch } from 'vue';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -142,9 +141,19 @@ const CancelDeleteUser = () => {
                                 </span>
                             </TableCell>
                             <TableCell>
-                                <LinkBntVoir @click="ShowUser(user)" />
-                                <LinkBtnModifier :href="route('admin.users.edit', user.id)" />
-                                <LinkBtnSupprimer @click="confirmDelete(user)" class="text-red-600 hover:text-red-900" />
+                                <Menubar>
+                                    <MenubarMenu>
+                                        <MenubarTrigger class="w-full"><Ellipsis /></MenubarTrigger>
+                                        <MenubarContent>
+                                            <MenubarItem @click="ShowUser(user)"><Eye class="black mr-2 h-4 w-4" />Voir</MenubarItem>
+                                            <MenubarItem @click="router.visit(route('admin.users.edit', user.id), { method: 'get' })">
+                                                <Pencil class="mr-2 h-4 w-4" /> Modifier
+                                            </MenubarItem>
+                                            <MenubarSeparator />
+                                            <MenubarItem @click="confirmDelete(user)"><Trash2 class="mr-2 h-4 w-4" />Supprimer</MenubarItem>
+                                        </MenubarContent>
+                                    </MenubarMenu>
+                                </Menubar>
                             </TableCell>
                         </TableRow>
                     </TableBody>
