@@ -19,28 +19,25 @@ class UserController extends Controller
      */
     public function index(Request $request): response
     {
-        $users = User::with('roles')
-            ->search($request)
-            ->paginate(12);
-
         $request->filled('search') ? $searchTerm = request(['search'])['search'] : $searchTerm = "";
 
-        $perPage = $request->input('per_page', 10);
-        $status = $request->input('is_active', null);
-        $sortField = $request->input('sort_field', 'name');
-        $sortDirection = $request->input('sort_direction', 'asc');
-        $filters = [];
+        //$perPage = $request->input('per_page', 10);
+        //$status = $request->input('is_active', null);
+        //$sortField = $request->input('sort_field', 'name');
+        //$sortDirection = $request->input('sort_direction', 'asc');
+        /*$filters = [];
         if (!empty($status)) {
             $filters[] = [
                 'id' => 'is_active',
                 'value' => $status
             ];
-        }
+        }*/
+        $users = User::with('roles')
+            ->search($request)
+            ->paginate(12);
         //dd($users);
 
-        $roles = Role::all()->only(['name']);
-
-        return Inertia::render('Admin/Users/Index', compact('users', 'roles', 'searchTerm'));
+        return Inertia::render('Admin/Users/Index', compact('users', 'searchTerm'));
     }
 
     /**
@@ -48,13 +45,8 @@ class UserController extends Controller
      */
     public function create(Request $request): response
     {
-        $users = User::with('roles')
-            ->search($request)
-            ->paginate(12);
-        $request->filled('search') ? $searchTerm = request(['search'])['search'] : $searchTerm = "";
-        return Inertia::render('Admin/Users/Index.avant.datatable', compact('users', 'searchTerm'));
-        //$roles = Role::all()->select(['id', 'name']);
-        //return Inertia::render('Admin/Users/Create', compact('roles'));
+        $roles = Role::all()->select(['id', 'name']);
+        return Inertia::render('Admin/Users/Create', compact('roles'));
     }
 
     /**
