@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import RoleShow from '@/components/admin/RoleShow.vue';
+import RoleShow from '@/components/admin/roles/RoleShow.vue';
 import BtnConfirmSupprimer from '@/components/buttons/BtnConfirmSupprimer.vue';
 import LinkBntAjouter from '@/components/links/LinkBtnAjouter.vue';
 import LinkBtnAnnuler from '@/components/links/LinkBtnAnnuler.vue';

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import UserShow from '@/components/admin/UserShow.vue';
+import UserShow from '@/components/admin/users/UserShow.vue';
 import BtnConfirmSupprimer from '@/components/buttons/BtnConfirmSupprimer.vue';
 import InputField from '@/components/InputField.vue';
 import LinkBntAjouter from '@/components/links/LinkBtnAjouter.vue';

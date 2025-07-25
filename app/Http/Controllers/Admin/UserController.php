@@ -22,17 +22,39 @@ class UserController extends Controller
         $users = User::with('roles')
             ->search($request)
             ->paginate(12);
+
         $request->filled('search') ? $searchTerm = request(['search'])['search'] : $searchTerm = "";
-        return Inertia::render('Admin/Users/Index', compact('users', 'searchTerm'));
+
+        $perPage = $request->input('per_page', 10);
+        $status = $request->input('is_active', null);
+        $sortField = $request->input('sort_field', 'name');
+        $sortDirection = $request->input('sort_direction', 'asc');
+        $filters = [];
+        if (!empty($status)) {
+            $filters[] = [
+                'id' => 'is_active',
+                'value' => $status
+            ];
+        }
+        //dd($users);
+
+        $roles = Role::all()->only(['name']);
+
+        return Inertia::render('Admin/Users/Index', compact('users', 'roles', 'searchTerm'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request): response
     {
-        $roles = Role::all()->select(['id', 'name']);
-        return Inertia::render('Admin/Users/Create', compact('roles'));
+        $users = User::with('roles')
+            ->search($request)
+            ->paginate(12);
+        $request->filled('search') ? $searchTerm = request(['search'])['search'] : $searchTerm = "";
+        return Inertia::render('Admin/Users/Index.avant.datatable', compact('users', 'searchTerm'));
+        //$roles = Role::all()->select(['id', 'name']);
+        //return Inertia::render('Admin/Users/Create', compact('roles'));
     }
 
     /**

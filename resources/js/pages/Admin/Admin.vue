@@ -28,6 +28,7 @@ defineProps<{
                     <p>TODO Administration</p>
                     <ul>
                         <li class="line-through">CRUD pour les permissions</li>
+                        <li class="">Faire fonctionner les droits utilisateur back et front (Gate et can)</li>
                         <li>CRUD pour les types de clients</li>
                         <li>CRUD pour les types de personnes morales</li>
                         <li>CRUD pour les types de fiche FOS</li>
@@ -49,12 +50,13 @@ defineProps<{
                     <ul>
                         <li class="bold text-red-700 line-through">Pagination</li>
                         <li class="line-through">toaster message flash</li>
-                        <li>Ajouter les search sur les pages index</li>
+                        <li class="line-through">Ajouter les search sur les pages index</li>
                         <li>tester les datatables</li>
                         <li>tester les onglets</li>
                         <li>contient {{ countUsers }} utilisateurs</li>
                         <li>contient {{ countRoles }} groupes utilisateurs</li>
                         <li>contient {{ countPermissions }} permissions</li>
+                        <li>https://www.netlify.com/ a tester</li>
                     </ul>
                 </div>
             </div>
