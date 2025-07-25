@@ -11,13 +11,7 @@ Route::get('/', function () {
     return Inertia::render('Welcome');
 })->name('home');
 
-/* Route::get('dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');*/
-
-
-
-Route::group(['auth', 'verified'], function () {
+Route::middleware(['auth', 'verified'])->group(function () {
 
     //Admin Routes Group
     Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
@@ -30,9 +24,6 @@ Route::group(['auth', 'verified'], function () {
     Route::get('admin', [PageController::class, 'admin'])->name('admin');
     Route::get('dashboard', [PageController::class, 'dashboard'])->name('dashboard');
 });
-
-
-
 
 
 require __DIR__ . '/settings.php';
