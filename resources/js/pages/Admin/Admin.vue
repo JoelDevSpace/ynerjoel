@@ -57,6 +57,7 @@ defineProps<{
                         <li>contient {{ countRoles }} groupes utilisateurs</li>
                         <li>contient {{ countPermissions }} permissions</li>
                         <li>https://www.netlify.com/ a tester</li>
+                        <li>(new Tighten)->notify(new NewPackage($event->package))</li>
                     </ul>
                 </div>
             </div>

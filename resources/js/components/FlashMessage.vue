@@ -70,7 +70,7 @@ watch(
     >
         <div
             v-if="show"
-            class="pointer-events-auto fixed right-4 bottom-4 z-50 w-full max-w-sm rounded-lg shadow-lg"
+            class="pointer-events-auto fixed top-4 right-4 z-50 w-full max-w-sm rounded-lg shadow-lg"
             :class="{
                 'border border-green-200 bg-green-50 text-green-800': type === 'success',
                 'border border-red-200 bg-red-50 text-red-800': type === 'error',
