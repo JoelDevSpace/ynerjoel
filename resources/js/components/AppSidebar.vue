@@ -24,41 +24,42 @@ const data = {
     navMain: [
         {
             title: 'Administration',
-            url: '/admin',
+            url: route('admin'),
             icon: Wrench,
-            isActive: true,
+            isActive: route().current('*admin*'),
             items: [
                 {
                     title: 'Utilisateurs',
-                    url: '/admin/users',
+                    url: route('admin.users.index'),
                 },
                 {
                     title: 'Groupes Utilisateurs',
-                    url: '/admin/roles',
+                    url: route('admin.roles.index'),
                 },
                 {
                     title: 'Permissions',
-                    url: '/admin/permissions',
+                    url: route('admin.permissions.index'),
                 },
             ],
         },
         {
-            title: 'Configuration',
-            url: '#',
+            title: 'Exploitation',
+            url: route('exploitation'),
             icon: Settings,
+            isActive: route().current('*exploitation*'),
             items: [
                 {
-                    title: 'Genesis',
-                    url: '#',
+                    title: 'Fosts',
+                    url: route('exploitation.fosts.index'),
                 },
                 {
-                    title: 'Explorer',
+                    title: 'Installateurs',
                     url: '#',
                 },
             ],
         },
         {
-            title: 'Dossiers',
+            title: 'Activité',
             url: '#',
             icon: FolderOpen,
             items: [
