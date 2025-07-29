@@ -21,21 +21,9 @@ class UserController extends Controller
     {
         $request->filled('search') ? $searchTerm = request(['search'])['search'] : $searchTerm = "";
 
-        //$perPage = $request->input('per_page', 10);
-        //$status = $request->input('is_active', null);
-        //$sortField = $request->input('sort_field', 'name');
-        //$sortDirection = $request->input('sort_direction', 'asc');
-        /*$filters = [];
-        if (!empty($status)) {
-            $filters[] = [
-                'id' => 'is_active',
-                'value' => $status
-            ];
-        }*/
         $users = User::with('roles')
             ->search($request)
             ->paginate(12);
-        //dd($users);
 
         return Inertia::render('Admin/Users/Index', compact('users', 'searchTerm'));
     }

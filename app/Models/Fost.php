@@ -6,6 +6,8 @@ use \DateTimeInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 
 class Fost extends Model
 {
@@ -37,6 +39,17 @@ class Fost extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+    public function scopeSearch(Builder $query, Request $request)
+    {
+        return $query->where(function ($query) use ($request) {
+            return $query->when($request->search, function ($query) use ($request) {
+                return $query->where(function ($query) use ($request) {
+                    $query->where('code', 'like', '%' . $request->search . '%')
+                        ->orWhere('libelle', 'like', '%' . $request->search . '%');
+                });
+            });
+        });
     }
 
 }
