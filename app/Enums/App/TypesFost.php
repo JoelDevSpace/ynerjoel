@@ -2,7 +2,7 @@
 
 namespace App\Enums\App;
 
-enum TypesFost
+enum TypesFost: string
 {
     case EQ = "Équipement";
     case SE = "Service";

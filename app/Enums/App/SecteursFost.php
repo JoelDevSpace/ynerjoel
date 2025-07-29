@@ -2,7 +2,7 @@
 
 namespace App\Enums\App;
 
-enum SecteursFost
+enum SecteursFost: string
 {
     case AGRI = "Agriculture";
     case BAR = "Résidentiel";
