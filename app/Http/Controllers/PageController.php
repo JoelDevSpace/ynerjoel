@@ -20,7 +20,7 @@ class PageController extends Controller
         $countUsers = User::count();
         $countRoles = Role::count();
         $countPermissions = Permission::count();
-        return Inertia::render('Admin/Admin', [
+        return Inertia::render('admin/Admin', [
             'countUsers' => $countUsers,
             'countRoles' => $countRoles,
             'countPermissions' => $countPermissions,

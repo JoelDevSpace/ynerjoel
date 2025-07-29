@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import RoleShow from '@/components/admin/roles/RoleShow.vue';
 import BtnConfirmSupprimer from '@/components/buttons/BtnConfirmSupprimer.vue';
 import LinkBntAjouter from '@/components/links/LinkBtnAjouter.vue';
 import LinkBtnAnnuler from '@/components/links/LinkBtnAnnuler.vue';
@@ -9,6 +8,7 @@ import LinkBntVoir from '@/components/links/LinkBtnVoir.vue';
 import Modal from '@/components/Modal.vue';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/AppLayout.vue';
+import RoleShow from '@/pages/admin/roles/showRole.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head, useForm } from '@inertiajs/vue3';
 import { ref } from 'vue';

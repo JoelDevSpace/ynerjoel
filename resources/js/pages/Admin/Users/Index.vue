@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import UserShow from '@/components/admin/users/UserShow.vue';
 import BtnConfirmSupprimer from '@/components/buttons/BtnConfirmSupprimer.vue';
 import InputField from '@/components/InputField.vue';
 import LinkBntAjouter from '@/components/links/LinkBtnAjouter.vue';
@@ -9,6 +8,7 @@ import Pagination from '@/components/Pagination.vue';
 import { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarSeparator, MenubarTrigger } from '@/components/ui/menubar';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/AppLayout.vue';
+import UserShow from '@/pages/admin/users/showUser.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head, router, useForm, usePage } from '@inertiajs/vue3';
 import { Ellipsis, Eye, Pencil, Trash2 } from 'lucide-vue-next';

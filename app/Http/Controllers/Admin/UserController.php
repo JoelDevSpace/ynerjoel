@@ -25,7 +25,7 @@ class UserController extends Controller
             ->search($request)
             ->paginate(12);
 
-        return Inertia::render('Admin/Users/Index', compact('users', 'searchTerm'));
+        return Inertia::render('admin/users/index', compact('users', 'searchTerm'));
     }
 
     /**
@@ -34,7 +34,7 @@ class UserController extends Controller
     public function create(Request $request): response
     {
         $roles = Role::all()->select(['id', 'name']);
-        return Inertia::render('Admin/Users/Create', compact('roles'));
+        return Inertia::render('admin/users/create', compact('roles'));
     }
 
     /**
@@ -60,7 +60,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $userRole = $user->roles->select(['id', 'name']);
         $roles = Role::all()->select(['id', 'name']);
-        return Inertia::render('Admin/Users/Edit', compact('user', 'userRole', 'roles'));
+        return Inertia::render('admin/users/edit', compact('user', 'userRole', 'roles'));
     }
 
     /**

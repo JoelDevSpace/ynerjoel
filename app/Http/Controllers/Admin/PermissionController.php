@@ -24,7 +24,7 @@ class PermissionController extends Controller
         $permissions = Permission::where('name', 'like', '%' . $request->search . '%')
             ->paginate(12);
         $request->filled('search') ? $searchTerm = request(['search'])['search'] : $searchTerm = "";
-        return Inertia::render('Admin/Permissions/Index', compact('permissions', 'searchTerm'));
+        return Inertia::render('admin/permissions/index', compact('permissions', 'searchTerm'));
     }
 
     /**
@@ -32,7 +32,7 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Admin/Permissions/Create', [
+        return Inertia::render('admin/permissions/create', [
             'modules' => ModulesEnum::options(),
             'elements' => ElementsEnum::options(),
             'actions' => ActionsEnum::options()
@@ -60,7 +60,7 @@ class PermissionController extends Controller
         $modules = ModulesEnum::options();
         $elements = ElementsEnum::options();
         $actions = ActionsEnum::options();
-        return Inertia::render('Admin/Permissions/Edit', compact('permission', 'modules', 'elements', 'actions'));
+        return Inertia::render('admin/permissions/edit', compact('permission', 'modules', 'elements', 'actions'));
     }
 
     /**

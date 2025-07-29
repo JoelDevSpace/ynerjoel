@@ -18,7 +18,7 @@ class RoleController extends Controller
     public function index(): Response
     {
         $roles = Role::with("permissions")->get();
-        return Inertia::render('Admin/Roles/Index', compact('roles'));
+        return Inertia::render('admin/roles/index', compact('roles'));
     }
 
     /**
@@ -27,7 +27,7 @@ class RoleController extends Controller
     public function create()
     {
         $permissions = Permission::all()->pluck('name', 'id');
-        return Inertia::render('Admin/Roles/Create', compact('permissions'));
+        return Inertia::render('admin/roles/create', compact('permissions'));
     }
 
     /**
@@ -51,7 +51,7 @@ class RoleController extends Controller
         $role = Role::findOrFail($id);
         $rolePermissions = $role->permissions->pluck('name');
         $permissions = Permission::all()->pluck('name', 'id');
-        return Inertia::render('Admin/Roles/Edit', compact('role', 'permissions', 'rolePermissions'));
+        return Inertia::render('admin/roles/edit', compact('role', 'permissions', 'rolePermissions'));
     }
 
     /**
