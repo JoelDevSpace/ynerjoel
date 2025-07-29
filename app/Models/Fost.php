@@ -38,7 +38,7 @@ class Fost extends Model
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'modification_user_id', 'id');
     }
     public function scopeSearch(Builder $query, Request $request)
     {
