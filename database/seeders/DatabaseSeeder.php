@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('password'),
         ]);
 
-        User::factory(10)->create();
+        User::factory(25)->create();
 
         $permissions = [
             'ADMIN.UTILISATEUR.LISTER',
@@ -35,7 +35,11 @@ class DatabaseSeeder extends Seeder
             'ADMIN.GROUPE.CREER',
             'ADMIN.GROUPE.MODIFIER',
             'ADMIN.GROUPE.SUPPRIMER',
-            'ADMIN.PERMISSION.VOIR'
+            'ADMIN.PERMISSION.LISTER',
+            'ADMIN.PERMISSION.VOIR',
+            'ADMIN.PERMISSION.CREER',
+            'ADMIN.PERMISSION.MODIFIER',
+            'ADMIN.PERMISSION.SUPPRIMER',
         ];
         foreach ($permissions as $permission) {
             \Spatie\Permission\Models\Permission::firstOrCreate(['name' => $permission]);

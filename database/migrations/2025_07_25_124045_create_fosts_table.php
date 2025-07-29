@@ -14,9 +14,9 @@ return new class extends Migration {
             $table->id();
             $table->string('code')->unique();
             $table->string('libelle');
-            $table->mediumText('Denomination')->nullable();
-            $table->timestamp('date_debut')->nullable();
-            $table->timestamp('date_fin')->nullable();
+            $table->mediumText('denomination')->nullable();
+            $table->date('date_debut')->nullable();
+            $table->date('date_fin')->nullable();
             $table->foreignId('modification_user_id')->nullable()->index();
             $table->timestamps();
             $table->softDeletes();

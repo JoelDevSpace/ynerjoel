@@ -41,7 +41,6 @@ const form = useForm({
     password: props.user.password || '',
     role: props.userRole && props.userRole.length > 0 ? props.userRole[0].id : '',
 });
-//v-if="role.id === userRole[0].id" selected=" "
 </script>
 
 <template>

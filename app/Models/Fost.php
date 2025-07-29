@@ -15,7 +15,7 @@ class Fost extends Model
     protected $fillable = [
         'code',
         'libelle',
-        'Denomination',
+        'denomination',
         'date_debut',
         'date_fin',
         'modification_user_id',
@@ -31,11 +31,6 @@ class Fost extends Model
         'date_debut',
         'date_fin',
     ];
-    protected function serializeDate(DateTimeInterface $date)
-    {
-        return $date->format('d-m-Y');
-    }
-
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'modification_user_id', 'id');
