@@ -27,10 +27,10 @@ defineProps<{
                 <div class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
                     <p>TODO Administration</p>
                     <ul>
-                        <li class="line-through">CRUD pour les permissions</li>
-                        <li class="line-through">Faire fonctionner les droits utilisateur back et front (Gate et can)</li>
                         <li>CRUD pour les types de clients</li>
                         <li>CRUD pour les types de personnes morales</li>
+                        <li class="line-through">CRUD pour les permissions</li>
+                        <li class="line-through">Faire fonctionner les droits utilisateur back et front (Gate et can)</li>
                         <li>
                             <p class="line-through">CRUD pour les types de fiche FOS <span class="no-underline"> Remplacé par un ENUM</span></p>
                         </li>
@@ -42,11 +42,11 @@ defineProps<{
                 <div class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
                     <p>TODO hors Administration</p>
                     <ul>
-                        <li>CRUD fiches</li>
-                        <li>CRUD Bénéficiaires</li>
                         <li>CRUD Installateurs</li>
                         <li>CRUD contrats Installateurs</li>
-                        <li>Dossier</li>
+                        <li>CRUD Bénéficiaires</li>
+                        <li>Dossiers</li>
+                        <li class="line-through">CRUD fiches</li>
                     </ul>
                 </div>
                 <div class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
@@ -57,6 +57,7 @@ defineProps<{
                         <li class="line-through">Ajouter les search sur les pages index</li>
                         <li>tester les datatables</li>
                         <li>tester les onglets</li>
+                        <li>tester les notifications</li>
                         <li>contient {{ countUsers }} utilisateurs</li>
                         <li>contient {{ countRoles }} groupes utilisateurs</li>
                         <li>contient {{ countPermissions }} permissions</li>
