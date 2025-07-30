@@ -11,7 +11,7 @@ import { Head, useForm } from '@inertiajs/vue3';
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Administration',
-        href: route('admin'),
+        href: '#',
     },
     {
         title: 'Utilisateurs',

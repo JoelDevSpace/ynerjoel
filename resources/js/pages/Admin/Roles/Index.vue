@@ -17,7 +17,7 @@ import { ref } from 'vue';
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Administration',
-        href: route('admin'),
+        href: '#',
     },
     {
         title: 'Liste des groupes utilisateurs',
