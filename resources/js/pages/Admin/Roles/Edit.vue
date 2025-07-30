@@ -42,8 +42,8 @@ const form = useForm({
             <div>
                 <LinkBtnRetour :href="route('admin.roles.index')" />
             </div>
-            <form class="flex w-1/3 flex-col gap-6" @submit.prevent="form.put(route('admin.roles.update', { id: role.id }))">
-                <div class="grid gap-6">
+            <form class="flex flex-col gap-6" @submit.prevent="form.put(route('admin.roles.update', { id: role.id }))">
+                <div class="grid w-1/3 gap-6">
                     <div class="grid gap-2">
                         <Label for="name">Nom :</Label>
                         <Input id="name" type="text" required autofocus :tabindex="1" v-model="form.name" placeholder="Saisir le nom du role" />
@@ -53,17 +53,19 @@ const form = useForm({
                 </div>
 
                 <div class="grid gap-6">
-                    <div class="grid gap-2">
+                    <div class="flex flex-col gap-2">
                         <Label for="Permission">Permissions :</Label>
-                        <label v-for="permission in permissions" :key="permission" class="flex items-center space-x-2">
-                            <input
-                                :value="permission"
-                                type="checkbox"
-                                class="form-checkbox h-5 w-5 rounded text-blue-600 focus:ring-2 focus:ring-blue-500"
-                                v-model="form.permissions"
-                            />
-                            <span class="text-sm text-gray-600 capitalize">{{ permission }}</span>
-                        </label>
+                        <div class="flex flex-wrap gap-2">
+                            <label v-for="permission in permissions" :key="permission" class="flex w-1/5 items-center space-x-2">
+                                <input
+                                    :value="permission"
+                                    type="checkbox"
+                                    class="form-checkbox h-5 w-5 rounded text-blue-600 focus:ring-2 focus:ring-blue-500"
+                                    v-model="form.permissions"
+                                />
+                                <span class="text-sm text-gray-600 capitalize">{{ permission }}</span>
+                            </label>
+                        </div>
                         <InputError class="mt-2" :message="form.errors.permissions" />
                     </div>
                 </div>
