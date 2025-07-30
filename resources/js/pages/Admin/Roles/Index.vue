@@ -8,6 +8,7 @@ import LinkBntVoir from '@/components/links/LinkBtnVoir.vue';
 import Modal from '@/components/Modal.vue';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/AppLayout.vue';
+import { can } from '@/lib/can';
 import RoleShow from '@/pages/admin/roles/showRole.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head, useForm } from '@inertiajs/vue3';
@@ -74,7 +75,7 @@ const deleteRole = () => {
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
             <div>
-                <LinkBntAjouter :href="route('admin.roles.create')" :text="'un groupe'" />
+                <LinkBntAjouter v-if="can('admin.groupe.creer')" :href="route('admin.roles.create')" :text="'un groupe'" />
             </div>
             <div class="overflow-x-auto p-3">
                 <Table>
@@ -82,7 +83,9 @@ const deleteRole = () => {
                         <TableRow>
                             <TableHead>Nom du groupe</TableHead>
                             <TableHead>Liste des Permissions</TableHead>
-                            <TableHead>Actions</TableHead>
+                            <TableHead v-if="can('admin.groupe.voir') || can('admin.groupe.modifier') || can('admin.groupe.supprimer')"
+                                >Actions</TableHead
+                            >
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -97,10 +100,14 @@ const deleteRole = () => {
                                     {{ permission.name }}
                                 </span>
                             </TableCell>
-                            <TableCell>
-                                <LinkBntVoir @click="ShowRole(role)" />
-                                <LinkBtnModifier :href="route('admin.roles.edit', role.id)" />
-                                <LinkBtnSupprimer @click="confirmDelete(role)" class="text-red-600 hover:text-red-900" />
+                            <TableCell v-if="can('admin.groupe.voir') || can('admin.groupe.modifier') || can('admin.groupe.supprimer')">
+                                <LinkBntVoir v-if="can('admin.groupe.voir')" @click="ShowRole(role)" />
+                                <LinkBtnModifier v-if="can('admin.groupe.modifier')" :href="route('admin.roles.edit', role.id)" />
+                                <LinkBtnSupprimer
+                                    v-if="can('admin.groupe.supprimer')"
+                                    @click="confirmDelete(role)"
+                                    class="text-red-600 hover:text-red-900"
+                                />
                             </TableCell>
                         </TableRow>
                     </TableBody>

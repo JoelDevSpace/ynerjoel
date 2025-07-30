@@ -25,21 +25,20 @@ class DatabaseSeeder extends Seeder
         User::factory(25)->create();
 
         $permissions = [
-            'ADMIN.UTILISATEUR.LISTER',
-            'ADMIN.UTILISATEUR.VOIR',
-            'ADMIN.UTILISATEUR.CREER',
-            'ADMIN.UTILISATEUR.MODIFIER',
-            'ADMIN.UTILISATEUR.SUPPRIMER',
-            'ADMIN.GROUPE.LISTER',
-            'ADMIN.GROUPE.VOIR',
-            'ADMIN.GROUPE.CREER',
-            'ADMIN.GROUPE.MODIFIER',
-            'ADMIN.GROUPE.SUPPRIMER',
-            'ADMIN.PERMISSION.LISTER',
-            'ADMIN.PERMISSION.VOIR',
-            'ADMIN.PERMISSION.CREER',
-            'ADMIN.PERMISSION.MODIFIER',
-            'ADMIN.PERMISSION.SUPPRIMER',
+            'admin.utilisateur.lister',
+            'admin.utilisateur.voir',
+            'admin.utilisateur.creer',
+            'admin.utilisateur.modifier',
+            'admin.utilisateur.supprimer',
+            'admin.groupe.lister',
+            'admin.groupe.voir',
+            'admin.groupe.creer',
+            'admin.groupe.modifier',
+            'admin.groupe.supprimer',
+            'admin.permission.lister',
+            'admin.permission.creer',
+            'admin.permission.modifier',
+            'admin.permission.supprimer',
         ];
         foreach ($permissions as $permission) {
             \Spatie\Permission\Models\Permission::firstOrCreate(['name' => $permission]);

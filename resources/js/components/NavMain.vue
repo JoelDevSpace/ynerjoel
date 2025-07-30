@@ -10,6 +10,7 @@ import {
     SidebarMenuSubButton,
     SidebarMenuSubItem,
 } from '@/components/ui/sidebar';
+import { can } from '@/lib/can';
 import { ChevronRight, type LucideIcon } from 'lucide-vue-next';
 
 defineProps<{
@@ -18,9 +19,11 @@ defineProps<{
         url: string;
         icon?: LucideIcon;
         isActive?: boolean;
+        permission?: string;
         items?: {
             title: string;
             url: string;
+            permission?: string;
         }[];
     }[];
 }>();
@@ -44,7 +47,7 @@ defineProps<{
                     <CollapsibleContent>
                         <SidebarMenuSub>
                             <SidebarMenuSubItem v-for="subItem in item.items" :key="subItem.title">
-                                <SidebarMenuSubButton as-child>
+                                <SidebarMenuSubButton as-child v-if="!subItem.permission || can(subItem.permission)">
                                     <a :href="subItem.url">
                                         <span>{{ subItem.title }}</span>
                                     </a>

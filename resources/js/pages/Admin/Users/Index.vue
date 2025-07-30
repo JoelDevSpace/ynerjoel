@@ -8,6 +8,7 @@ import Pagination from '@/components/Pagination.vue';
 import { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarSeparator, MenubarTrigger } from '@/components/ui/menubar';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/AppLayout.vue';
+import { can } from '@/lib/can';
 import UserShow from '@/pages/admin/users/showUser.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head, router, useForm, usePage } from '@inertiajs/vue3';
@@ -113,7 +114,12 @@ const CancelDeleteUser = () => {
         <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
             <div class="flex flex-row justify-between">
                 <InputField v-model="search" type="search" id="search" label="" autocomplete="off" icon="" placeholder="Chercher..." />
-                <LinkBntAjouter :href="route('admin.users.create')" :text="'un utilisateur'" class="mt-2 mr-60" />
+                <LinkBntAjouter
+                    v-if="can('admin.utilisateur.creer')"
+                    :href="route('admin.users.create')"
+                    :text="'un utilisateur'"
+                    class="mt-2 mr-60"
+                />
             </div>
             <div class="overflow-x-auto p-3" v-if="Object.keys(users.data).length">
                 <Table>
@@ -123,7 +129,9 @@ const CancelDeleteUser = () => {
                             <TableHead>Nom</TableHead>
                             <TableHead>Email</TableHead>
                             <TableHead>Roles</TableHead>
-                            <TableHead>Actions</TableHead>
+                            <TableHead v-if="can('admin.utilisateur.voir') || can('admin.utilisateur.modifier') || can('admin.utilisateur.supprimer')"
+                                >Actions</TableHead
+                            >
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -140,17 +148,26 @@ const CancelDeleteUser = () => {
                                     {{ role.name }}
                                 </span>
                             </TableCell>
-                            <TableCell>
+                            <TableCell
+                                v-if="can('admin.utilisateur.voir') || can('admin.utilisateur.modifier') || can('admin.utilisateur.supprimer')"
+                            >
                                 <Menubar>
                                     <MenubarMenu>
                                         <MenubarTrigger class="w-full"><Ellipsis /></MenubarTrigger>
                                         <MenubarContent>
-                                            <MenubarItem @click="ShowUser(user)"><Eye class="black mr-2 h-4 w-4" />Voir</MenubarItem>
-                                            <MenubarItem @click="router.visit(route('admin.users.edit', user.id), { method: 'get' })">
+                                            <MenubarItem v-if="can('admin.utilisateur.voir')" @click="ShowUser(user)"
+                                                ><Eye class="black mr-2 h-4 w-4" />Voir</MenubarItem
+                                            >
+                                            <MenubarItem
+                                                v-if="can('admin.utilisateur.modifier')"
+                                                @click="router.visit(route('admin.users.edit', user.id), { method: 'get' })"
+                                            >
                                                 <Pencil class="mr-2 h-4 w-4" /> Modifier
                                             </MenubarItem>
                                             <MenubarSeparator />
-                                            <MenubarItem @click="confirmDelete(user)"><Trash2 class="mr-2 h-4 w-4" />Supprimer</MenubarItem>
+                                            <MenubarItem v-if="can('admin.utilisateur.supprimer')" @click="confirmDelete(user)"
+                                                ><Trash2 class="mr-2 h-4 w-4" />Supprimer</MenubarItem
+                                            >
                                         </MenubarContent>
                                     </MenubarMenu>
                                 </Menubar>

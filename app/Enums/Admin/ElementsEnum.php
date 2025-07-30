@@ -4,9 +4,10 @@ namespace App\Enums\Admin;
 
 enum ElementsEnum: string
 {
-    case UTILISATEUR = "Utilisateur";
-    case GROUPE = "Groupe Utilisateurs";
-    case PERMISSION = "Permission";
+    case utilisateur = "Utilisateur";
+    case groupe = "Groupe Utilisateurs";
+    case permission = "Permission";
+    case fost = "Fost";
     public static function options(): array
     {
         return array_map(

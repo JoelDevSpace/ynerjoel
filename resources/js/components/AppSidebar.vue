@@ -19,7 +19,6 @@ import AppLogo from './AppLogo.vue';
 
 const props = defineProps<SidebarProps>();
 
-// This is sample data.
 const data = {
     navMain: [
         {
@@ -31,14 +30,17 @@ const data = {
                 {
                     title: 'Utilisateurs',
                     url: route('admin.users.index'),
+                    permission: 'admin.utilisateur.lister',
                 },
                 {
                     title: 'Groupes Utilisateurs',
                     url: route('admin.roles.index'),
+                    permission: 'admin.groupe.lister',
                 },
                 {
                     title: 'Permissions',
                     url: route('admin.permissions.index'),
+                    permission: 'admin.permission.lister',
                 },
             ],
         },
@@ -51,6 +53,7 @@ const data = {
                 {
                     title: 'Fosts',
                     url: route('exploitation.fosts.index'),
+                    permission: 'exploit.fost.lister',
                 },
                 {
                     title: 'Installateurs',

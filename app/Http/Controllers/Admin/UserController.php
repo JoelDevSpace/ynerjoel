@@ -11,6 +11,7 @@ use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
@@ -19,6 +20,9 @@ class UserController extends Controller
      */
     public function index(Request $request): response
     {
+        abort_if(Gate::denies('admin.utilisateur.lister'), 403, '403 Forbidden');
+
+
         $request->filled('search') ? $searchTerm = request(['search'])['search'] : $searchTerm = "";
 
         $users = User::with('roles')
@@ -33,6 +37,8 @@ class UserController extends Controller
      */
     public function create(Request $request): response
     {
+        abort_if(Gate::denies('admin.utilisateur.creer'), 403, '403 Forbidden');
+
         $roles = Role::all()->select(['id', 'name']);
         return Inertia::render('admin/users/create', compact('roles'));
     }
@@ -42,6 +48,8 @@ class UserController extends Controller
      */
     public function store(UserCreateRequest $request)
     {
+        abort_if(Gate::denies('admin.utilisateur.creer'), 403, '403 Forbidden');
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -57,6 +65,8 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
+        abort_if(Gate::denies('admin.utilisateur.modifier'), 403, '403 Forbidden');
+
         $user = User::findOrFail($id);
         $userRole = $user->roles->select(['id', 'name']);
         $roles = Role::all()->select(['id', 'name']);
@@ -68,6 +78,8 @@ class UserController extends Controller
      */
     public function update(UserUpdateRequest $request, string $id)
     {
+        abort_if(Gate::denies('admin.utilisateur.modifier'), 403, '403 Forbidden');
+
         $user = User::findOrFail($id);
         $user->name = $request->name;
         $user->email = $request->email;
@@ -88,6 +100,8 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
+        abort_if(Gate::denies('admin.utilisateur.supprimer'), 403, '403 Forbidden');
+
         $user = User::findOrFail($id);
         $user->delete();
         return redirect()->route('admin.users.index')->with('success', 'Utilisateur supprimé avec succès.');

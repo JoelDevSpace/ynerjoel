@@ -12,6 +12,7 @@ use Inertia\Inertia;
 use Inertia\Response;
 use App\Http\Requests\Admin\Permission\PermissionCreateRequest;
 use App\Http\Requests\Admin\Permission\PermissionUpdateRequest;
+use Illuminate\Support\Facades\Gate;
 
 class PermissionController extends Controller
 {
@@ -20,6 +21,7 @@ class PermissionController extends Controller
      */
     public function index(Request $request)
     {
+        abort_if(Gate::denies('admin.permission.lister'), 403, '403 Forbidden');
 
         $permissions = Permission::where('name', 'like', '%' . $request->search . '%')
             ->paginate(12);
@@ -32,6 +34,8 @@ class PermissionController extends Controller
      */
     public function create()
     {
+        abort_if(Gate::denies('admin.permission.creer'), 403, '403 Forbidden');
+
         return Inertia::render('admin/permissions/create', [
             'modules' => ModulesEnum::options(),
             'elements' => ElementsEnum::options(),
@@ -44,6 +48,8 @@ class PermissionController extends Controller
      */
     public function store(PermissionCreateRequest $request)
     {
+        abort_if(Gate::denies('admin.permission.creer'), 403, '403 Forbidden');
+
         $permission = Permission::create([
             'name' => implode(".", [$request->module, $request->element, $request->action]),
         ]);
@@ -56,6 +62,8 @@ class PermissionController extends Controller
      */
     public function edit(string $id)
     {
+        abort_if(Gate::denies('admin.permission.modifier'), 403, '403 Forbidden');
+
         $permission = Permission::findOrFail($id)->only('name', 'id');
         $modules = ModulesEnum::options();
         $elements = ElementsEnum::options();
@@ -68,6 +76,7 @@ class PermissionController extends Controller
      */
     public function update(PermissionUpdateRequest $request, string $id)
     {
+        abort_if(Gate::denies('admin.permission.modifier'), 403, '403 Forbidden');
 
         $permission = Permission::findOrFail($id);
         $permission->name = implode(".", [$request->module, $request->element, $request->action]);
@@ -82,6 +91,8 @@ class PermissionController extends Controller
      */
     public function destroy(string $id)
     {
+        abort_if(Gate::denies('admin.permission.supprimer'), 403, '403 Forbidden');
+
         $permission = Permission::findOrFail($id);
         $permission->delete();
         return redirect()->route('admin.permissions.index')->with('success', 'Permission deleted successfully.');

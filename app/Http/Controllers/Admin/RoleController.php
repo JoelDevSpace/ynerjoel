@@ -9,6 +9,7 @@ use Inertia\Inertia;
 use Inertia\Response;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Gate;
 
 class RoleController extends Controller
 {
@@ -17,6 +18,8 @@ class RoleController extends Controller
      */
     public function index(): Response
     {
+        abort_if(Gate::denies('admin.groupe.lister'), 403, '403 Forbidden');
+
         $roles = Role::with("permissions")->get();
         return Inertia::render('admin/roles/index', compact('roles'));
     }
@@ -26,6 +29,8 @@ class RoleController extends Controller
      */
     public function create()
     {
+        abort_if(Gate::denies('admin.groupe.creer'), 403, '403 Forbidden');
+
         $permissions = Permission::all()->pluck('name', 'id');
         return Inertia::render('admin/roles/create', compact('permissions'));
     }
@@ -35,6 +40,8 @@ class RoleController extends Controller
      */
     public function store(RoleCreateRequest $request)
     {
+        abort_if(Gate::denies('admin.groupe.creer'), 403, '403 Forbidden');
+
         $role = Role::create([
             'name' => $request->name,
         ]);
@@ -48,6 +55,8 @@ class RoleController extends Controller
      */
     public function edit(string $id): Response
     {
+        abort_if(Gate::denies('admin.groupe.modifier'), 403, '403 Forbidden');
+
         $role = Role::findOrFail($id);
         $rolePermissions = $role->permissions->pluck('name');
         $permissions = Permission::all()->pluck('name', 'id');
@@ -59,6 +68,7 @@ class RoleController extends Controller
      */
     public function update(RoleUpdateRequest $request, string $id)
     {
+        abort_if(Gate::denies('admin.groupe.modifier'), 403, '403 Forbidden');
 
         $role = Role::findOrFail($id);
         $role->name = $request->name;
@@ -74,6 +84,8 @@ class RoleController extends Controller
      */
     public function destroy(string $id)
     {
+        abort_if(Gate::denies('admin.groupe.supprimer'), 403, '403 Forbidden');
+
         $role = Role::findOrFail($id);
         $role->delete();
         return redirect()->route('admin.roles.index')->with('success', 'Groupe utilisateur supprimé avec succès.');

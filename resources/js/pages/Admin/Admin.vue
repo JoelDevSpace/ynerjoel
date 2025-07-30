@@ -28,11 +28,15 @@ defineProps<{
                     <p>TODO Administration</p>
                     <ul>
                         <li class="line-through">CRUD pour les permissions</li>
-                        <li class="">Faire fonctionner les droits utilisateur back et front (Gate et can)</li>
+                        <li class="line-through">Faire fonctionner les droits utilisateur back et front (Gate et can)</li>
                         <li>CRUD pour les types de clients</li>
                         <li>CRUD pour les types de personnes morales</li>
-                        <li>CRUD pour les types de fiche FOS</li>
-                        <li>CRUD pour les secteurs des fiche FOS</li>
+                        <li>
+                            <p class="line-through">CRUD pour les types de fiche FOS <span class="no-underline"> Remplacé par un ENUM</span></p>
+                        </li>
+                        <li>
+                            <p class="line-through">CRUD pour les secteurs des fiche FOS <span class="no-underline"> Remplacé par un ENUM</span></p>
+                        </li>
                     </ul>
                 </div>
                 <div class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">

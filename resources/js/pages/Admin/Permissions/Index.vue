@@ -9,6 +9,7 @@ import Modal from '@/components/Modal.vue';
 import Pagination from '@/components/Pagination.vue';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/AppLayout.vue';
+import { can } from '@/lib/can';
 import { type BreadcrumbItem } from '@/types';
 import { Head, router, useForm, usePage } from '@inertiajs/vue3';
 import { computed, ref, watch } from 'vue';
@@ -96,7 +97,12 @@ const deletePermission = () => {
         <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
             <div class="flex flex-row justify-between">
                 <InputField v-model="search" type="search" id="search" label="" autocomplete="off" icon="" placeholder="Chercher..." />
-                <LinkBntAjouter :href="route('admin.permissions.create')" :text="'une permission'" class="mt-2 mr-60" />
+                <LinkBntAjouter
+                    v-if="can('admin.permission.creer')"
+                    :href="route('admin.permissions.create')"
+                    :text="'une permission'"
+                    class="mt-2 mr-60"
+                />
             </div>
             <div class="overflow-x-auto p-3">
                 <Table>
@@ -105,7 +111,7 @@ const deletePermission = () => {
                             <TableHead>Module</TableHead>
                             <TableHead>Elément</TableHead>
                             <TableHead>Action</TableHead>
-                            <TableHead>Actions</TableHead>
+                            <TableHead v-if="can('admin.permission.modifier') || can('admin.permission.supprimer')">Actions</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -113,9 +119,13 @@ const deletePermission = () => {
                             <TableCell class="capitalize">{{ permission.name.split('.')[0].toLowerCase() }}</TableCell>
                             <TableCell class="capitalize">{{ permission.name.split('.')[1].toLowerCase() }}</TableCell>
                             <TableCell class="capitalize">{{ permission.name.split('.')[2].toLowerCase() }}</TableCell>
-                            <TableCell>
-                                <LinkBtnModifier :href="route('admin.permissions.edit', permission.id)" />
-                                <LinkBtnSupprimer @click="confirmDelete(permission)" class="text-red-600 hover:text-red-900" />
+                            <TableCell v-if="can('admin.permission.modifier') || can('admin.permission.supprimer')">
+                                <LinkBtnModifier v-if="can('admin.permission.modifier')" :href="route('admin.permissions.edit', permission.id)" />
+                                <LinkBtnSupprimer
+                                    v-if="can('admin.permission.supprimer')"
+                                    @click="confirmDelete(permission)"
+                                    class="text-red-600 hover:text-red-900"
+                                />
                             </TableCell>
                         </TableRow>
                     </TableBody>
