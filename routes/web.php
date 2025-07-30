@@ -27,9 +27,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('fosts', FostController::class)->except('show')->names('fosts');
     });
 
-    Route::get('admin', [PageController::class, 'admin'])->name('admin');
     Route::get('dashboard', [PageController::class, 'dashboard'])->name('dashboard');
-    Route::get('exploitation', [PageController::class, 'dashboard'])->name('exploitation');
+    Route::get('todo', [PageController::class, 'todo'])->name('todo');
+
 
 });
 

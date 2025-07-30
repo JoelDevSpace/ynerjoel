@@ -14,7 +14,7 @@ import {
     type SidebarProps,
 } from '@/components/ui/sidebar';
 import { Link } from '@inertiajs/vue3';
-import { ChartArea, FolderOpen, Frame, LayoutGrid, PieChart, Settings, Wrench } from 'lucide-vue-next';
+import { ChartArea, ClipboardCheck, FolderOpen, Frame, LayoutGrid, PieChart, Settings, Wrench } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
 
 const props = defineProps<SidebarProps>();
@@ -23,7 +23,7 @@ const data = {
     navMain: [
         {
             title: 'Administration',
-            url: route('admin'),
+            url: '#',
             icon: Wrench,
             isActive: route().current('*admin*'),
             items: [
@@ -46,7 +46,7 @@ const data = {
         },
         {
             title: 'Exploitation',
-            url: route('exploitation'),
+            url: '#',
             icon: Settings,
             isActive: route().current('*exploitation*'),
             items: [
@@ -110,9 +110,9 @@ const data = {
     ],
     projects: [
         {
-            name: 'Installateurs',
-            url: '#',
-            icon: Frame,
+            name: 'Todo list',
+            url: route('todo'),
+            icon: ClipboardCheck,
         },
         {
             name: 'Dossiers',

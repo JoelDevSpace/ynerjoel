@@ -15,12 +15,13 @@ class PageController extends Controller
     {
         return Inertia::render('Dashboard');
     }
-    public function admin()
+
+    public function todo()
     {
         $countUsers = User::count();
         $countRoles = Role::count();
         $countPermissions = Permission::count();
-        return Inertia::render('admin/Admin', [
+        return Inertia::render('Todo', [
             'countUsers' => $countUsers,
             'countRoles' => $countRoles,
             'countPermissions' => $countPermissions,
