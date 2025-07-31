@@ -15,6 +15,7 @@ defineProps<{
     countUsers: number;
     countRoles: number;
     countPermissions: number;
+    countFosts: number;
 }>();
 </script>
 
@@ -53,12 +54,11 @@ defineProps<{
                 <div class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
                     <p>TODO Design</p>
                     <ul>
+                        <li>Changer la page d'accueil</li>
+                        <li>Changer la page de login</li>
                         <li>tester les datatables</li>
                         <li>tester les onglets</li>
                         <li>tester les notifications</li>
-                        <li>contient {{ countUsers }} utilisateurs</li>
-                        <li>contient {{ countRoles }} groupes utilisateurs</li>
-                        <li>contient {{ countPermissions }} permissions</li>
                         <li>https://www.netlify.com/ a tester</li>
                         <li>(new Tighten)->notify(new NewPackage($event->package))</li>
                         <li class="bold text-red-700 line-through">Pagination</li>
@@ -68,6 +68,12 @@ defineProps<{
                 </div>
             </div>
             <div class="relative min-h-[100vh] flex-1 rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border">
+                <ul class="m-4">
+                    <li>contient {{ countUsers }} utilisateurs</li>
+                    <li>contient {{ countRoles }} groupes utilisateurs</li>
+                    <li>contient {{ countPermissions }} permissions</li>
+                    <li>contient {{ countFosts }} fosts</li>
+                </ul>
                 <PlaceholderPattern />
             </div>
         </div>

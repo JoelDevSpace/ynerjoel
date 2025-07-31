@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Fost;
+use app\Models\User;
 use Inertia\Inertia;
 use Inertia\Response;
-use app\Models\User;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -21,10 +21,12 @@ class PageController extends Controller
         $countUsers = User::count();
         $countRoles = Role::count();
         $countPermissions = Permission::count();
+        $countFosts = Fost::count();
         return Inertia::render('Todo', [
             'countUsers' => $countUsers,
             'countRoles' => $countRoles,
             'countPermissions' => $countPermissions,
+            'countFosts' => $countFosts,
         ]);
     }
 
