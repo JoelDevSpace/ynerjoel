@@ -57,7 +57,8 @@ const data = {
                 },
                 {
                     title: 'Installateurs',
-                    url: '#',
+                    url: route('exploitation.installateurs.index'),
+                    permission: 'exploit.installateur.lister',
                 },
             ],
         },
