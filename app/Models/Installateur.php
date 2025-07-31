@@ -22,6 +22,7 @@ class Installateur extends Model
         'email',
         'site_web',
         'actif',
+        'modification_user_id',
     ];
     public function user(): BelongsTo
     {
