@@ -94,9 +94,18 @@ const deletePermission = () => {
     <Head title="Permissions" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
-        <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
+        <div class="flex h-full flex-1 flex-col gap-4 rounded-xl bg-gradient-to-tr from-amber-50 to-cyan-100 p-4">
             <div class="flex flex-row justify-between">
-                <InputField v-model="search" type="search" id="search" label="" autocomplete="off" icon="" placeholder="Chercher..." />
+                <InputField
+                    v-model="search"
+                    type="search"
+                    id="search"
+                    label=""
+                    autocomplete="off"
+                    icon=""
+                    placeholder="Chercher..."
+                    class="rounded-4xl"
+                />
                 <LinkBntAjouter
                     v-if="can('admin.permission.creer')"
                     :href="route('admin.permissions.create')"

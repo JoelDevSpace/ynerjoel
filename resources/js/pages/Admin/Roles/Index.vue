@@ -73,7 +73,7 @@ const deleteRole = () => {
     <Head title="Groupes Utilisateurs" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
-        <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
+        <div class="flex h-full flex-1 flex-col gap-4 rounded-xl bg-gradient-to-tr from-amber-50 to-cyan-100 p-4">
             <div>
                 <LinkBntAjouter v-if="can('admin.groupe.creer')" :href="route('admin.roles.create')" :text="'un groupe'" />
             </div>

@@ -28,7 +28,7 @@ defineProps<{
                 <div class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
                     <p>TODO Installateurs</p>
                     <ul>
-                        <li>Infos de bases</li>
+                        <li class="text-emerald-500">Infos de bases -> OK</li>
                         <li>Adresses - facturation / Siège / travaux / autre</li>
                         <li>Conditions de facturation / RIB ??</li>
                         <li>Contacts pour cet installateur</li>
