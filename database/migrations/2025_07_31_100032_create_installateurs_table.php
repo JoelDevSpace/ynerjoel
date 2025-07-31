@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->string('designation_juridique')->nullable();
             $table->string('nom_commercial')->nullable();
-            $table->unsignedInteger('siret')->nullable();
+            $table->unsignedInteger('siren')->nullable();
             $table->unsignedMediumInteger('num_etablissement')->nullable();
             $table->string('numero_tva')->nullable();
             $table->string('telephone')->nullable();

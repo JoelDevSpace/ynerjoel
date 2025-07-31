@@ -15,7 +15,7 @@ class Installateur extends Model
     protected $fillable = [
         'designation_juridique',
         'nom_commercial',
-        'siret',
+        'siren',
         'num_etablissement',
         'numero_tva',
         'telephone',
