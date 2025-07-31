@@ -29,6 +29,7 @@ defineProps<{
                     <ul>
                         <li>CRUD pour les types de clients</li>
                         <li>CRUD pour les types de personnes morales</li>
+                        <li>Ajouter le paramétrage des contrôles sur les Fiches</li>
                         <li class="line-through">CRUD pour les permissions</li>
                         <li class="line-through">Faire fonctionner les droits utilisateur back et front (Gate et can)</li>
                         <li>
@@ -52,9 +53,6 @@ defineProps<{
                 <div class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
                     <p>TODO Design</p>
                     <ul>
-                        <li class="bold text-red-700 line-through">Pagination</li>
-                        <li class="line-through">toaster message flash</li>
-                        <li class="line-through">Ajouter les search sur les pages index</li>
                         <li>tester les datatables</li>
                         <li>tester les onglets</li>
                         <li>tester les notifications</li>
@@ -63,6 +61,9 @@ defineProps<{
                         <li>contient {{ countPermissions }} permissions</li>
                         <li>https://www.netlify.com/ a tester</li>
                         <li>(new Tighten)->notify(new NewPackage($event->package))</li>
+                        <li class="bold text-red-700 line-through">Pagination</li>
+                        <li class="line-through">toaster message flash</li>
+                        <li class="line-through">Ajouter les search sur les pages index</li>
                     </ul>
                 </div>
             </div>
