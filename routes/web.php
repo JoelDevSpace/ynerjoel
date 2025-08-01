@@ -34,8 +34,21 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', [PageController::class, 'dashboard'])->name('dashboard');
     Route::get('todo', [PageController::class, 'todo'])->name('todo');
 
+    /*Route::get('/test', function () {
+        $installateurs = Installateur::find(1);
+        $adresse = new (Adresse::class);
+        $adresse->type = 'livraison';
+        $adresse->adresse = '10 rue de la poste';
+        $adresse->code_postal = '31000';
+        $adresse->ville = 'Toulouse';
+        $adresse->pays = 'France';
+        $installateurs->adresses()->save($adresse);
+    });*/
 
 });
+
+
+
 
 
 require __DIR__ . '/settings.php';
