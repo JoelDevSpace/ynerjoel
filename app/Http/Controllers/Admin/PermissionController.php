@@ -60,11 +60,10 @@ class PermissionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Permission $permission)
     {
         abort_if(Gate::denies('admin.permission.modifier'), 403, '403 Forbidden');
 
-        $permission = Permission::findOrFail($id)->only('name', 'id');
         $modules = ModulesEnum::options();
         $elements = ElementsEnum::options();
         $actions = ActionsEnum::options();
@@ -74,11 +73,10 @@ class PermissionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(PermissionUpdateRequest $request, string $id)
+    public function update(PermissionUpdateRequest $request, Permission $permission)
     {
         abort_if(Gate::denies('admin.permission.modifier'), 403, '403 Forbidden');
 
-        $permission = Permission::findOrFail($id);
         $permission->name = implode(".", [$request->module, $request->element, $request->action]);
         $permission->save();
 
@@ -89,11 +87,10 @@ class PermissionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Permission $permission)
     {
         abort_if(Gate::denies('admin.permission.supprimer'), 403, '403 Forbidden');
 
-        $permission = Permission::findOrFail($id);
         $permission->delete();
         return redirect()->route('admin.permissions.index')->with('success', 'Permission deleted successfully.');
     }

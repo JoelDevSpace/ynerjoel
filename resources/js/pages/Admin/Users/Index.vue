@@ -94,7 +94,7 @@ const form = useForm({});
 
 const deleteUser = () => {
     if (!deletingUser.value) return;
-    form.delete(route('admin.users.destroy', deletingUser.value.id), {
+    form.delete(route('admin.users.destroy', deletingUser.value), {
         onSuccess: () => {
             showDeleteModal.value = false;
             deletingUser.value = undefined;
@@ -169,7 +169,7 @@ const CancelDeleteUser = () => {
                                             >
                                             <MenubarItem
                                                 v-if="can('admin.utilisateur.modifier')"
-                                                @click="router.visit(route('admin.users.edit', user.id), { method: 'get' })"
+                                                @click="router.visit(route('admin.users.edit', user), { method: 'get' })"
                                             >
                                                 <Pencil class="mr-2 h-4 w-4" /> Modifier
                                             </MenubarItem>

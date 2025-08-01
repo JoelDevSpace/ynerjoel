@@ -60,7 +60,7 @@ const form = useForm({});
 
 const deleteRole = () => {
     if (!deletingRole.value) return;
-    form.delete(route('admin.roles.destroy', deletingRole.value.id), {
+    form.delete(route('admin.roles.destroy', deletingRole.value), {
         onSuccess: () => {
             showDeleteModal.value = false;
             deletingRole.value = undefined;
@@ -102,7 +102,7 @@ const deleteRole = () => {
                             </TableCell>
                             <TableCell v-if="can('admin.groupe.voir') || can('admin.groupe.modifier') || can('admin.groupe.supprimer')">
                                 <LinkBntVoir v-if="can('admin.groupe.voir')" @click="ShowRole(role)" />
-                                <LinkBtnModifier v-if="can('admin.groupe.modifier')" :href="route('admin.roles.edit', role.id)" />
+                                <LinkBtnModifier v-if="can('admin.groupe.modifier')" :href="route('admin.roles.edit', role)" />
                                 <LinkBtnSupprimer
                                     v-if="can('admin.groupe.supprimer')"
                                     @click="confirmDelete(role)"

@@ -63,11 +63,10 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(User $user)
     {
         abort_if(Gate::denies('admin.utilisateur.modifier'), 403, '403 Forbidden');
 
-        $user = User::findOrFail($id);
         $userRole = $user->roles->select(['id', 'name']);
         $roles = Role::all()->select(['id', 'name']);
         return Inertia::render('admin/users/edit', compact('user', 'userRole', 'roles'));
@@ -76,11 +75,10 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UserUpdateRequest $request, string $id)
+    public function update(UserUpdateRequest $request, User $user)
     {
         abort_if(Gate::denies('admin.utilisateur.modifier'), 403, '403 Forbidden');
 
-        $user = User::findOrFail($id);
         $user->name = $request->name;
         $user->email = $request->email;
         if ($request->filled('password')) {
@@ -98,11 +96,10 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(User $user)
     {
         abort_if(Gate::denies('admin.utilisateur.supprimer'), 403, '403 Forbidden');
 
-        $user = User::findOrFail($id);
         $user->delete();
         return redirect()->route('admin.users.index')->with('success', 'Utilisateur supprimé avec succès.');
     }

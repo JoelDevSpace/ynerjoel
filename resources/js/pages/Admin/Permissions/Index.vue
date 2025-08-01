@@ -81,7 +81,7 @@ const form = useForm({});
 
 const deletePermission = () => {
     if (!deletingPermission.value) return;
-    form.delete(route('admin.permissions.destroy', deletingPermission.value.id), {
+    form.delete(route('admin.permissions.destroy', deletingPermission.value), {
         onSuccess: () => {
             showDeleteModal.value = false;
             deletingPermission.value = undefined;
@@ -129,7 +129,7 @@ const deletePermission = () => {
                             <TableCell class="capitalize">{{ permission.name.split('.')[1].toLowerCase() }}</TableCell>
                             <TableCell class="capitalize">{{ permission.name.split('.')[2].toLowerCase() }}</TableCell>
                             <TableCell v-if="can('admin.permission.modifier') || can('admin.permission.supprimer')">
-                                <LinkBtnModifier v-if="can('admin.permission.modifier')" :href="route('admin.permissions.edit', permission.id)" />
+                                <LinkBtnModifier v-if="can('admin.permission.modifier')" :href="route('admin.permissions.edit', permission)" />
                                 <LinkBtnSupprimer
                                     v-if="can('admin.permission.supprimer')"
                                     @click="confirmDelete(permission)"

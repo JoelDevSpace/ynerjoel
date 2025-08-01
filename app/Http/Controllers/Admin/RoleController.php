@@ -53,11 +53,10 @@ class RoleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id): Response
+    public function edit(Role $role): Response
     {
         abort_if(Gate::denies('admin.groupe.modifier'), 403, '403 Forbidden');
 
-        $role = Role::findOrFail($id);
         $rolePermissions = $role->permissions->pluck('name');
         $permissions = Permission::all()->pluck('name', 'id');
         return Inertia::render('admin/roles/edit', compact('role', 'permissions', 'rolePermissions'));
@@ -66,11 +65,10 @@ class RoleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(RoleUpdateRequest $request, string $id)
+    public function update(RoleUpdateRequest $request, Role $role)
     {
         abort_if(Gate::denies('admin.groupe.modifier'), 403, '403 Forbidden');
 
-        $role = Role::findOrFail($id);
         $role->name = $request->name;
         $role->save();
 
@@ -82,11 +80,10 @@ class RoleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Role $role)
     {
         abort_if(Gate::denies('admin.groupe.supprimer'), 403, '403 Forbidden');
 
-        $role = Role::findOrFail($id);
         $role->delete();
         return redirect()->route('admin.roles.index')->with('success', 'Groupe utilisateur supprimé avec succès.');
     }
