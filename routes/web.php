@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Exploitation\FostController;
+use App\Http\Controllers\Exploitation\InstallateurAdresse;
 use App\Http\Controllers\Exploitation\InstallateurController;
 use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +30,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('installateurs', InstallateurController::class)->except('show')->names('installateurs');
         Route::patch('installateurs/{installateur}/desactiver', [InstallateurController::class, 'desactiver'])->name('installateurs.desactiver');
         Route::patch('installateurs/{installateur}/activer', [InstallateurController::class, 'activer'])->name('installateurs.activer');
+        Route::resource('installateurs.adresses', InstallateurAdresse::class)->except('index', 'show', 'edit');
+
     });
 
     Route::get('dashboard', [PageController::class, 'dashboard'])->name('dashboard');
@@ -46,10 +49,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });*/
 
 });
-
-
-
-
 
 require __DIR__ . '/settings.php';
 require __DIR__ . '/auth.php';
