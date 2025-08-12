@@ -48,6 +48,7 @@ defineProps<{
                         <li>Ajouter le paramétrage des contrôles sur les Fiches</li>
                         <li>CRUD Bénéficiaires</li>
                         <li>Dossiers</li>
+                        <li>Package validation des num de TVA https://github.com/BurtDS/laravel-vatnumber-checker</li>
                     </ul>
                 </div>
                 <div class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">

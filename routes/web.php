@@ -30,7 +30,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('installateurs', InstallateurController::class)->except('show')->names('installateurs');
         Route::patch('installateurs/{installateur}/desactiver', [InstallateurController::class, 'desactiver'])->name('installateurs.desactiver');
         Route::patch('installateurs/{installateur}/activer', [InstallateurController::class, 'activer'])->name('installateurs.activer');
-        Route::resource('installateurs.adresses', InstallateurAdresse::class)->except('index', 'show', 'edit');
+        Route::resource('installateurs.adresses', InstallateurAdresse::class)->only('store', 'update', 'destroy');
 
     });
 
