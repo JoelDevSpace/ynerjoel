@@ -28,8 +28,8 @@ defineProps<{
                 <div class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
                     <p>TODO Installateurs</p>
                     <ul>
-                        <li class="text-emerald-500">Infos de bases -> OK</li>
-                        <li>Adresses - facturation / Siège / travaux / autre</li>
+                        <li>Infos de bases <span class="text-emerald-500"> -> reste le delete</span></li>
+                        <li>Adresses - facturation / Siège / travaux / autre <span class="text-emerald-500"> -> reste le delete</span></li>
                         <li>Conditions de facturation / RIB ??</li>
                         <li>Contacts pour cet installateur</li>
                         <li>Contrats</li>
@@ -41,7 +41,7 @@ defineProps<{
                 <div class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
                     <p>TODO</p>
                     <ul>
-                        <li>CRUD Installateurs</li>
+                        <li>CRUD Installateurs -> en cours voir ci contre</li>
                         <li>CRUD contrats Installateurs</li>
                         <li>CRUD pour les types de clients</li>
                         <li>CRUD pour les types de personnes morales</li>
