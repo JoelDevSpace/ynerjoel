@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Exploitation\FostController;
 use App\Http\Controllers\Exploitation\InstallateurAdresse;
 use App\Http\Controllers\Exploitation\InstallateurController;
+use App\Http\Controllers\Exploitation\InstallateurFacturationController;
 use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -31,7 +32,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::patch('installateurs/{installateur}/desactiver', [InstallateurController::class, 'desactiver'])->name('installateurs.desactiver');
         Route::patch('installateurs/{installateur}/activer', [InstallateurController::class, 'activer'])->name('installateurs.activer');
         Route::resource('installateurs.adresses', InstallateurAdresse::class)->only('store', 'update', 'destroy');
-
+        Route::resource('installateurs.facturation', InstallateurFacturationController::class)->only('store', 'update', 'destroy');
     });
 
     Route::get('dashboard', [PageController::class, 'dashboard'])->name('dashboard');
