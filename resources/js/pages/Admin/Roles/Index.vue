@@ -9,7 +9,7 @@ import Modal from '@/components/Modal.vue';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { can } from '@/lib/can';
-import RoleShow from '@/pages/admin/roles/showRole.vue';
+import showRole from '@/pages/admin/roles/showRole.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head, useForm } from '@inertiajs/vue3';
 import { ref } from 'vue';
@@ -117,7 +117,7 @@ const deleteRole = () => {
             <Modal :show="showRoleModal" @close="closeModal">
                 <div class="p-6">
                     <h2 class="text-center text-lg font-medium text-gray-900">Groupe Utilisateur</h2>
-                    <RoleShow :role="showingRole" />
+                    <showRole :role="showingRole" />
                 </div>
             </Modal>
         </div>
