@@ -4,9 +4,10 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Exploitation\FostController;
-use App\Http\Controllers\Exploitation\InstallateurAdresse;
+use App\Http\Controllers\Exploitation\InstallateurAdresseController;
 use App\Http\Controllers\Exploitation\InstallateurController;
 use App\Http\Controllers\Exploitation\InstallateurFacturationController;
+use App\Http\Controllers\Exploitation\InstallateurDocumentController;
 use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -31,8 +32,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('installateurs', InstallateurController::class)->except('show')->names('installateurs');
         Route::patch('installateurs/{installateur}/desactiver', [InstallateurController::class, 'desactiver'])->name('installateurs.desactiver');
         Route::patch('installateurs/{installateur}/activer', [InstallateurController::class, 'activer'])->name('installateurs.activer');
-        Route::resource('installateurs.adresses', InstallateurAdresse::class)->only('store', 'update', 'destroy');
+        Route::resource('installateurs.adresses', InstallateurAdresseController::class)->only('store', 'update', 'destroy');
         Route::resource('installateurs.facturation', InstallateurFacturationController::class)->only('store', 'update', 'destroy');
+        Route::post('installateurs.documents', [InstallateurDocumentController::class, 'store'])->name('installateurs.documents.upload');
+        Route::get('installateurs.documents', [InstallateurDocumentController::class, 'download'])->name('installateurs.documents.download');
+        Route::delete('installateurs.documents', [InstallateurDocumentController::class, 'download'])->name('installateurs.documents.delete');
     });
 
     Route::get('dashboard', [PageController::class, 'dashboard'])->name('dashboard');
