@@ -4,7 +4,9 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Gate;
 class AppServiceProvider extends ServiceProvider
+
 {
     /**
      * Register any application services.
@@ -19,7 +21,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-
+        Gate::before(function ($user, $ability) {
+            return $user->hasRole('administrateur') ? true : null;
+        });
         Model::automaticallyEagerLoadRelationships();
     }
 }

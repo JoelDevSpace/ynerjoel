@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    return Inertia::render('Welcome');
+    return Inertia::render('welcome');
 })->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -29,6 +29,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::group(['prefix' => 'exploitation', 'as' => 'exploitation.'], function () {
 
         Route::resource('fosts', FostController::class)->except('show')->names('fosts');
+        
         Route::resource('installateurs', InstallateurController::class)->except('show')->names('installateurs');
         Route::patch('installateurs/{installateur}/desactiver', [InstallateurController::class, 'desactiver'])->name('installateurs.desactiver');
         Route::patch('installateurs/{installateur}/activer', [InstallateurController::class, 'activer'])->name('installateurs.activer');

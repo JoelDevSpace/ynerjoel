@@ -16,22 +16,18 @@ use Illuminate\Support\Facades\Gate;
 
 class PermissionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(Request $request)
     {
         abort_if(Gate::denies('admin.permission.lister'), 403, '403 Forbidden');
 
         $permissions = Permission::where('name', 'like', '%' . $request->search . '%')
             ->paginate(12);
+
         $request->filled('search') ? $searchTerm = request(['search'])['search'] : $searchTerm = "";
+
         return Inertia::render('admin/permissions/index', compact('permissions', 'searchTerm'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         abort_if(Gate::denies('admin.permission.creer'), 403, '403 Forbidden');
@@ -43,23 +39,17 @@ class PermissionController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(PermissionCreateRequest $request)
     {
         abort_if(Gate::denies('admin.permission.creer'), 403, '403 Forbidden');
 
-        $permission = Permission::create([
+        Permission::create([
             'name' => implode(".", [$request->module, $request->element, $request->action]),
         ]);
 
         return redirect()->route('admin.permissions.index')->with('success', 'Permission ajoutée avec succès.');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Permission $permission)
     {
         abort_if(Gate::denies('admin.permission.modifier'), 403, '403 Forbidden');
@@ -67,12 +57,10 @@ class PermissionController extends Controller
         $modules = ModulesEnum::options();
         $elements = ElementsEnum::options();
         $actions = ActionsEnum::options();
+
         return Inertia::render('admin/permissions/edit', compact('permission', 'modules', 'elements', 'actions'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(PermissionUpdateRequest $request, Permission $permission)
     {
         abort_if(Gate::denies('admin.permission.modifier'), 403, '403 Forbidden');
@@ -84,14 +72,12 @@ class PermissionController extends Controller
         ;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Permission $permission)
     {
         abort_if(Gate::denies('admin.permission.supprimer'), 403, '403 Forbidden');
 
         $permission->delete();
+        
         return redirect()->route('admin.permissions.index')->with('success', 'Permission deleted successfully.');
     }
 }

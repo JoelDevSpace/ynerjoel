@@ -2,27 +2,30 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
 
-        User::factory()->create([
+        $user = User::factory()->create([
             'name' => 'JoelDevSpace',
             'email' => 'joel@admin.com',
             'password' => Hash::make('password'),
         ]);
 
         User::factory(25)->create();
+
+        $role = Role::firstOrCreate([
+            'name' => 'administrateur',
+            'guard_name' => 'web', ]);
+
+        $user->assignRole(1);
 
         $permissions = [
             'admin.utilisateur.lister',
@@ -39,9 +42,21 @@ class DatabaseSeeder extends Seeder
             'admin.permission.creer',
             'admin.permission.modifier',
             'admin.permission.supprimer',
+            'exploit.fost.lister',
+            'exploit.fost.voir',
+            'exploit.fost.creer',
+            'exploit.fost.modifier',
+            'exploit.fost.supprimer',
+            'exploit.installateur.lister',
+            'exploit.installateur.voir',
+            'exploit.installateur.creer',
+            'exploit.installateur.modifier',
+            'exploit.installateur.supprimer',
         ];
+
         foreach ($permissions as $permission) {
             \Spatie\Permission\Models\Permission::firstOrCreate(['name' => $permission]);
+            $role->givePermissionTo($permission);
         }
     }
 }

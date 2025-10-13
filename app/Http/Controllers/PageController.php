@@ -13,7 +13,7 @@ class PageController extends Controller
 {
     public function dashboard()
     {
-        return Inertia::render('Dashboard');
+        return Inertia::render('dashboard');
     }
 
     public function todo()
@@ -22,7 +22,8 @@ class PageController extends Controller
         $countRoles = Role::count();
         $countPermissions = Permission::count();
         $countFosts = Fost::count();
-        return Inertia::render('Todo', [
+        
+        return Inertia::render('todo', [
             'countUsers' => $countUsers,
             'countRoles' => $countRoles,
             'countPermissions' => $countPermissions,

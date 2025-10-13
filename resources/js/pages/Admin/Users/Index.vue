@@ -137,7 +137,7 @@ const CancelDeleteUser = () => {
                             <TableHead class="w-[80px]">ID</TableHead>
                             <TableHead>Nom</TableHead>
                             <TableHead>Email</TableHead>
-                            <TableHead>Roles</TableHead>
+                            <TableHead>Groupe</TableHead>
                             <TableHead v-if="can('admin.utilisateur.voir') || can('admin.utilisateur.modifier') || can('admin.utilisateur.supprimer')"
                                 >Actions</TableHead
                             >
